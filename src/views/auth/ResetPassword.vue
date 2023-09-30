@@ -1,5 +1,28 @@
+<template>
+  <div>
+    <h2 class="mb- text-2xl font-bold">Reset Password</h2>
+    <p class="mb-4 text-sm text-slate-500">Choose a new password below</p>
+    <v-form class="flex w-full flex-col items-start" @submit.prevent="onSubmit">
+      <FieldPassword
+        :disabled="loading"
+        class="mb-4 w-full"
+        name="password"
+        id="password"
+        label="Password"
+        placeholder="Choose your password"
+        v-model="password"
+      />
+
+      <v-btn :loading="loading" type="submit" class="bg-teal-700">
+        Reset
+      </v-btn>
+    </v-form>
+  </div>
+</template>
+
 <script lang="ts" setup>
 import { useAuthStore } from "@/stores/auth";
+import FieldPassword from "@/components/fields/FieldPassword.vue";
 const router = useRouter();
 const route = useRoute();
 
@@ -35,28 +58,3 @@ async function onSubmit() {
   loading.value = false;
 }
 </script>
-<template>
-  <div>
-    <h2 class="mb- text-2xl font-bold">Reset Password</h2>
-    <p class="mb-4 text-sm text-slate-500">Choose a new password below</p>
-    <form class="flex w-full flex-col items-start" @submit.prevent="onSubmit">
-      <VLabel for="password">Password</VLabel>
-      <VPasswordInput
-        :disabled="loading"
-        class="mb-4 w-full"
-        name="password"
-        id="password"
-        placeholder="Choose your password"
-        v-model="password"
-      />
-
-      <VButton
-        :loading="loading"
-        type="submit"
-        class="bg-teal-700"
-      >
-        Reset
-      </VButton>
-    </form>
-  </div>
-</template>

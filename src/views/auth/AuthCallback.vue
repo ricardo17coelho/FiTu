@@ -1,5 +1,9 @@
+<template>
+  <LoadingIcon class="mx-auto w-16" />
+</template>
 <script lang="ts" setup>
 import { useAuthStore } from "@/stores/auth";
+import LoadingIcon from "@/components/LoadingIcon.vue";
 
 const router = useRouter();
 const { supabase } = useAuthStore();
@@ -15,6 +19,3 @@ onMounted(() => {
   }
 });
 </script>
-<template>
-  <LoadingIcon class="mx-auto w-16" />
-</template>

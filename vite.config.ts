@@ -2,23 +2,24 @@ import { fileURLToPath } from "url";
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import Components from "unplugin-vue-components/vite";
+import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
 import AutoImport from "unplugin-auto-import/vite";
-import Icons from "unplugin-icons/vite";
-import IconsResolver from "unplugin-icons/resolver";
-import PurgeIcons from "vite-plugin-purge-icons";
+
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
-    Icons({ compiler: "vue3" }),
-    PurgeIcons({
-      content: ["**/*.html", "**/*.js", "**/*.ts", "**/*.vue"],
+    vue({
+      template: {
+        transformAssetUrls
+      }
     }),
-    Components({
-      dts: true,
-      resolvers: [IconsResolver()],
+
+    vuetify({
+      autoImport: true,
+      styles: {
+        configFile: 'src/styles/settings.scss'
+      }
     }),
     AutoImport({
       // targets to transform

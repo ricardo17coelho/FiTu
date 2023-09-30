@@ -1,7 +1,103 @@
+<template>
+  <div>
+    <h2 class="mb- text-2xl font-bold">
+      {{ title }}
+    </h2>
+    <p class="mb-4 text-sm text-slate-500">
+      {{ subtitle }}
+    </p>
+    <v-form
+      class="flex w-full flex-col items-start"
+      @submit.prevent="emailAuth"
+    >
+      <v-text-field
+        v-model="(credentials.email as string)"
+        required
+        :disabled="loading"
+        label="Email"
+        name="email"
+        id="email"
+        type="email"
+        :placeholder="emailPlaceholder"
+      />
+      <FieldPassword
+        v-model="(credentials.password as string)"
+        :disabled="loading"
+        class="mb-4 w-full"
+        name="password"
+        id="password"
+        label="Password"
+        :placeholder="passwordPlaceholder"
+      />
+
+      <v-row>
+        <v-col>
+          <v-btn v-if="!signUp" to="/forgotpassword" variant="text">
+            Forgot your password?
+          </v-btn>
+        </v-col>
+        <v-col align="end">
+          <VBtnPrimary
+            :loading="emailLoading"
+            :disabled="loading"
+            type="submit"
+          >
+            {{ signUp ? "Sign Up" : "Sign In" }}
+          </VBtnPrimary>
+        </v-col>
+      </v-row>
+    </v-form>
+    <v-row>
+      <v-col>
+        <v-btn
+          :loading="gitHubLoading"
+          :disabled="loading"
+          color="black"
+          @click="gitHubAuth"
+        >
+          <v-icon>mdi-github</v-icon>
+        </v-btn>
+      </v-col>
+      <v-col>
+        <v-btn
+          :loading="googleLoading"
+          :disabled="loading"
+          color="#EA4335"
+          @click="googleAuth"
+        >
+          <v-icon>mdi-google</v-icon>
+        </v-btn>
+      </v-col>
+      <v-col>
+        <v-btn
+          :loading="twitterLoading"
+          :disabled="loading"
+          color="#1DA1F2"
+          @click="twitterAuth"
+        >
+          <v-icon>mdi-twitter</v-icon>
+        </v-btn>
+      </v-col>
+      <v-col>
+        <v-btn
+          :loading="facebookLoading"
+          :disabled="loading"
+          color="#425F9C"
+          @click="facebookAuth"
+        >
+          <v-icon>mdi-facebook</v-icon>
+        </v-btn>
+      </v-col>
+    </v-row>
+    <slot name="actions" />
+  </div>
+</template>
+
 <script lang="ts" setup>
 import { useAuthStore } from "@/stores/auth";
 import { Ref } from "vue";
 import { UserCredentials } from "@supabase/supabase-js";
+import FieldPassword from "@/components/fields/FieldPassword.vue";
 
 const props = defineProps<{
   signUp: boolean;
@@ -109,90 +205,3 @@ const loading = computed(
     facebookLoading.value
 );
 </script>
-<template>
-  <div>
-    <h2 class="mb- text-2xl font-bold">
-      {{ title }}
-    </h2>
-    <p class="mb-4 text-sm text-slate-500">
-      {{ subtitle }}
-    </p>
-    <form class="flex w-full flex-col items-start" @submit.prevent="emailAuth">
-      <VLabel for="email">Email</VLabel>
-      <VInput
-        required
-        :disabled="loading"
-        class="w-full"
-        name="email"
-        id="email"
-        type="email"
-        :placeholder="emailPlaceholder"
-        v-model="(credentials.email as string)"
-      />
-      <VLabel for="password">Password</VLabel>
-      <VPasswordInput
-        :disabled="loading"
-        class="mb-4 w-full"
-        name="password"
-        id="password"
-        :placeholder="passwordPlaceholder"
-        v-model="(credentials.password as string)"
-      />
-
-      <router-link
-        v-if="!signUp"
-        to="/forgotpassword"
-        class="mb-4 text-sm font-bold"
-        >Forgot your password?</router-link
-      >
-
-      <VButton
-        :loading="emailLoading"
-        :disabled="loading"
-        type="submit"
-        class="bg-teal-700"
-        >{{ signUp ? "Sign Up" : "Sign In" }}</VButton
-      >
-    </form>
-    <div class="flex space-x-2">
-      <VButton
-        :loading="gitHubLoading"
-        :disabled="loading"
-        type="button"
-        class="flex items-center justify-center bg-black"
-        @click="gitHubAuth"
-      >
-        <i-mdi-github class="h-5 w-5" />
-      </VButton>
-      <VButton
-        :loading="googleLoading"
-        :disabled="loading"
-        type="button"
-        class="flex items-center justify-center bg-[#EA4335]"
-        @click="googleAuth"
-      >
-        <i-mdi-google class="h-5 w-5" />
-      </VButton>
-      <VButton
-        :loading="twitterLoading"
-        :disabled="loading"
-        type="button"
-        class="flex items-center justify-center bg-[#1DA1F2]"
-        @click="twitterAuth"
-      >
-        <i-mdi-twitter class="h-5 w-5" />
-      </VButton>
-      <VButton
-        :loading="facebookLoading"
-        :disabled="loading"
-        type="button"
-        class="flex items-center justify-center bg-[#425F9C]"
-        @click="facebookAuth"
-      >
-        <i-mdi-facebook class="h-5 w-5" />
-      </VButton>
-    </div>
-
-    <slot name="actions" />
-  </div>
-</template>

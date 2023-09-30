@@ -1,8 +1,7 @@
-<script lang="ts" setup></script>
-
 <template>
   <router-view />
 </template>
+<script lang="ts" setup></script>
 
 <style>
 html,
@@ -10,6 +9,5 @@ body,
 #app {
   height: 100%;
   min-height: 100%;
-  @apply bg-slate-100;
 }
 </style>

@@ -1,6 +1,48 @@
+<template>
+  <h1 class="mb-2 text-3xl font-medium">Profile</h1>
+  <p class="mb-4 text-xl">Hi, {{ name }}</p>
+  <v-row>
+    <v-col>
+      <v-form
+        class="inline-flex flex-col space-y-2"
+        @submit.prevent="changePassword"
+      >
+        <FieldPassword
+          v-model="password"
+          name="password"
+          id="password"
+          :disabled="loading"
+          label="Change your password"
+          placeholder="Choose a new password"
+        />
+        <VBtnPrimary :disabled="loading">Change Password</VBtnPrimary>
+      </v-form>
+    </v-col>
+    <v-col>
+      <v-form
+        class="inline-flex flex-col space-y-2"
+        @submit.prevent="changeNickname"
+      >
+        <v-text-field
+          :disabled="loading"
+          required
+          v-model="nickname"
+          class="inline-block"
+          name="nickname"
+          id="nickname"
+          label="Change your nickname"
+          placeholder="Choose a new nickname"
+        />
+        <VBtnPrimary :disabled="loading">Change Nickname</VBtnPrimary>
+      </v-form>
+    </v-col>
+  </v-row>
+</template>
+
 <script setup lang="ts">
 import { supabase } from "@/services/supabase";
 import { User } from "@supabase/supabase-js";
+import FieldPassword from "@/components/fields/FieldPassword.vue";
 
 const user = supabase.auth.user() as User;
 const metadata = user.user_metadata;
@@ -36,42 +78,3 @@ async function changeNickname() {
   loading.value = false;
 }
 </script>
-
-<template>
-  <h1 class="mb-2 text-3xl font-medium">Profile</h1>
-  <p class="mb-4 text-xl">Hi, {{ name }}</p>
-
-  <div class="inline-grid grid-cols-1 gap-8 md:grid-cols-2">
-    <form
-      class="inline-flex flex-col space-y-2"
-      @submit.prevent="changePassword"
-    >
-      <VLabel for="password">Change your password</VLabel>
-      <VPasswordInput
-        :disabled="loading"
-        v-model="password"
-        class="inline-block"
-        name="password"
-        id="password"
-        placeholder="Choose a new password"
-      />
-      <VButton :disabled="loading" class="bg-teal-700">Change Password</VButton>
-    </form>
-    <form
-      class="inline-flex flex-col space-y-2"
-      @submit.prevent="changeNickname"
-    >
-      <VLabel for="nickname">Change your nickname</VLabel>
-      <VInput
-        :disabled="loading"
-        required
-        v-model="nickname"
-        class="inline-block"
-        name="nickname"
-        id="nickname"
-        placeholder="Choose a new nickname"
-      />
-      <VButton :disabled="loading" class="bg-teal-700">Change Nickname</VButton>
-    </form>
-  </div>
-</template>

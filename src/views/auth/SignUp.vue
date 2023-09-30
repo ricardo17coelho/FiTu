@@ -1,4 +1,3 @@
-<script lang="ts" setup></script>
 <template>
   <AuthForm
     :sign-up="true"
@@ -10,10 +9,13 @@
     <template v-slot:actions>
       <span class="text-sm">
         Already registered?
-        <router-link to="/signin" class="font-bold"
-          >Sign in here!</router-link
-        ></span
-      ></template
-    >
+        <router-link to="/signin" class="font-bold">
+          Sign in here!
+        </router-link>
+      </span>
+    </template>
   </AuthForm>
 </template>
+<script lang="ts" setup>
+import AuthForm from "@/components/AuthForm.vue";
+</script>

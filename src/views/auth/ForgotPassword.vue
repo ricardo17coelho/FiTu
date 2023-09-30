@@ -1,3 +1,40 @@
+<template>
+  <div>
+    <h2 class="mb- text-2xl font-bold">Lost your password?</h2>
+    <p class="mb-4 text-sm text-slate-500">Let's sort that for you</p>
+    <v-form class="flex w-full flex-col items-start" @submit.prevent="onSubmit">
+      <v-text-field
+        required
+        :disabled="loading"
+        label="Email"
+        class="w-full"
+        name="email"
+        id="email"
+        type="email"
+        placeholder="Enter your email"
+        v-model="email"
+      />
+
+      <v-btn
+        :loading="loading"
+        type="submit"
+        variant="plain"
+        class="bg-teal-700"
+      >
+        Reset
+      </v-btn>
+    </v-form>
+
+    <v-row>
+      <v-col>
+        <v-btn to="/signup" color="secondary">Sign up</v-btn><br />
+      </v-col>
+      <v-col align="end">
+        <VBtnPrimary to="/signin">Sign in</VBtnPrimary>
+      </v-col>
+    </v-row>
+  </div>
+</template>
 <script lang="ts" setup>
 import { useAuthStore } from "@/stores/auth";
 
@@ -20,29 +57,3 @@ async function onSubmit() {
   loading.value = false;
 }
 </script>
-<template>
-  <div>
-    <h2 class="mb- text-2xl font-bold">Lost your password?</h2>
-    <p class="mb-4 text-sm text-slate-500">Let's sort that for you</p>
-    <form class="flex w-full flex-col items-start" @submit.prevent="onSubmit">
-      <VLabel for="email">Email</VLabel>
-      <VInput
-        required
-        :disabled="loading"
-        class="w-full"
-        name="email"
-        id="email"
-        type="email"
-        placeholder="Enter your email"
-        v-model="email"
-      />
-
-      <VButton :loading="loading" type="submit" class="bg-teal-700"> Reset </VButton>
-    </form>
-
-    <span class="text-sm">
-      <router-link to="/signup" class="font-bold">Sign up</router-link><br />
-      <router-link to="/signin" class="font-bold">Sign in</router-link>
-    </span>
-  </div>
-</template>
