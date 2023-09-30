@@ -24,8 +24,8 @@ import { ref } from "vue";
 // }>();
 
 const rules = {
-  required: (value) => !!value || "Required.",
-  min: (v) => v.length >= 8 || "Min 8 characters",
+  required: (value: string) => !!value || "Required.",
+  min: (v: string) => v.length >= 8 || "Min 8 characters",
 };
 
 const show = ref(false);
