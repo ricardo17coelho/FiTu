@@ -102,6 +102,34 @@ const router = createRouter({
           name: "profile",
           component: () => import("@/views/ProfileView.vue"),
         },
+        {
+          path: "/admin",
+          name: "admin",
+          redirect: "admin-nations",
+          component: () => import("@/layouts/EmptyLayout.vue"),
+          children: [
+            {
+              path: "/admin/nations",
+              name: "admin-nations",
+              component: () => import("@/views/admin/AdminNations.vue"),
+            },
+            {
+              path: "/admin/leagues",
+              name: "admin-leagues",
+              component: () => import("@/views/admin/AdminLeagues.vue"),
+            },
+            {
+              path: "/admin/clubs",
+              name: "admin-clubs",
+              component: () => import("@/views/admin/AdminClubs.vue"),
+            },
+          ],
+        },
+        {
+          path: "/test",
+          name: "test",
+          component: () => import("@/views/TestView.vue"),
+        },
       ],
     },
   ],

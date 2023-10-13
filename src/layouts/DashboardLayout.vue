@@ -5,8 +5,10 @@
       <NavDrawer v-model="open" />
 
       <v-main class="text-slate-700 dark:text-slate-300">
-        <v-container>
-          open: {{ open }}
+        <v-container
+          class="overflow-auto"
+          style="max-height: calc(100vh - 56px - 56px)"
+        >
           <RouterView />
         </v-container>
       </v-main>

@@ -47,6 +47,7 @@ const opts = {
   aliases: {
     VBtnPrimary: VBtn,
     VBtnSecondary: VBtn,
+    VBtnDev: VBtn,
   },
   defaults: {
     VBtn: {
@@ -60,6 +61,11 @@ const opts = {
     VBtnSecondary: {
       variant: "outlined",
       color: "primary",
+    },
+    VBtnDev: {
+      variant: "tonal",
+      color: "warning",
+      prependIcon: "mdi-bug",
     },
     VIcon: {
       size: "small",

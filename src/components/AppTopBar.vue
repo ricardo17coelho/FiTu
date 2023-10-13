@@ -15,7 +15,7 @@
     </div>
   </header> -->
 
-  <v-app-bar color="primary" density="compact">
+  <v-app-bar color="primary" density="comfortable">
     <template v-slot:prepend>
       <v-app-bar-nav-icon
         @click="emit('update:modelValue', !modelValue)"
@@ -25,6 +25,7 @@
     <v-app-bar-title>FiTu</v-app-bar-title>
 
     <template v-slot:append>
+      <v-btn icon="mdi-theme-light-dark" @click="toggleTheme" />
       <v-btn icon="mdi-dots-vertical"></v-btn>
       <v-btn icon="mdi-logout" @click="signOut" />
     </template>
@@ -47,7 +48,9 @@ const emit = defineEmits<{
 /** Vuetify Theme */
 const theme = useTheme();
 
-function toggleDark() {}
+function toggleTheme() {
+  theme.global.name.value = theme.global.current.value.dark ? "light" : "dark";
+}
 
 async function signOut() {
   const { error } = await supabase.auth.signOut();

@@ -17,6 +17,7 @@
     "@mdi/font": "^7.2.96",
     "@supabase/supabase-js": "^1.29.4",
     "@vueuse/core": "^7.4.1",
+    "axios": "^1.5.1",
     "pinia": "^2.0.10",
     "vue": "^3.2.26",
     "vue-router": "^4.0.12",
