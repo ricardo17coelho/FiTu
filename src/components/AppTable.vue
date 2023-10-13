@@ -102,7 +102,7 @@
     <template #item.logoUrl="{ item }">
       <v-avatar v-if="item.logoUrl" color="grey-lighten-4" class="border-solid">
         <v-img
-          cover="true"
+          :cover="true"
           :src="item.logoUrl"
           :alt="`logo-url-${item.name}`"
         ></v-img>

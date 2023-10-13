@@ -105,23 +105,32 @@ const router = createRouter({
         {
           path: "/admin",
           name: "admin",
-          redirect: "admin-nations",
+          redirect: { name: "admin-nations" },
           component: () => import("@/layouts/EmptyLayout.vue"),
           children: [
             {
               path: "/admin/nations",
               name: "admin-nations",
               component: () => import("@/views/admin/AdminNations.vue"),
+              meta: {
+                can: "is-super-admin",
+              },
             },
             {
               path: "/admin/leagues",
               name: "admin-leagues",
               component: () => import("@/views/admin/AdminLeagues.vue"),
+              meta: {
+                can: "is-super-admin",
+              },
             },
             {
               path: "/admin/clubs",
               name: "admin-clubs",
               component: () => import("@/views/admin/AdminClubs.vue"),
+              meta: {
+                can: "is-super-admin",
+              },
             },
           ],
         },

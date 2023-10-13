@@ -36,7 +36,7 @@ const opts = {
     },
     themes: {
       light: {
-        dark: false,
+        dark: true,
         colors: {
           primary: "#0052FF",
         },
