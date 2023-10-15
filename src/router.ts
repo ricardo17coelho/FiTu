@@ -2,12 +2,17 @@ import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "./stores/auth";
 import { pinia } from "./stores";
 
+// Layouts
+import LayoutDefault from "@/layouts/LayoutDefault.vue";
+import LayoutAuth from "@/layouts/LayoutAuth.vue";
+// import LayoutEmpty from "@/layouts/LayoutEmpty.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/signin",
-      component: () => import("@/layouts/AuthLayout.vue"),
+      component: LayoutAuth,
       meta: {
         requiresNoAuth: true,
       },
@@ -31,7 +36,7 @@ const router = createRouter({
     },
     {
       path: "/resetpassword",
-      component: () => import("@/layouts/AuthLayout.vue"),
+      component: LayoutAuth,
       children: [
         {
           path: "/resetpassword",
@@ -88,7 +93,7 @@ const router = createRouter({
 
     {
       path: "/",
-      component: () => import("@/layouts/DashboardLayout.vue"),
+      component: LayoutDefault,
       meta: {
         requiresAuth: true,
       },
@@ -104,49 +109,49 @@ const router = createRouter({
           component: () => import("@/views/ProfileView.vue"),
         },
         {
-          path: "/admin",
-          name: "admin",
-          redirect: { name: "admin-users" },
-          component: () => import("@/layouts/EmptyLayout.vue"),
-          children: [
-            {
-              path: "/admin/users",
-              name: "admin-users",
-              component: () => import("@/views/admin/AdminUsers.vue"),
-              meta: {
-                can: "is-super-admin",
-              },
-            },
-            {
-              path: "/admin/nations",
-              name: "admin-nations",
-              component: () => import("@/views/admin/AdminNations.vue"),
-              meta: {
-                can: "is-super-admin",
-              },
-            },
-            {
-              path: "/admin/leagues",
-              name: "admin-leagues",
-              component: () => import("@/views/admin/AdminLeagues.vue"),
-              meta: {
-                can: "is-super-admin",
-              },
-            },
-            {
-              path: "/admin/clubs",
-              name: "admin-clubs",
-              component: () => import("@/views/admin/AdminClubs.vue"),
-              meta: {
-                can: "is-super-admin",
-              },
-            },
-          ],
-        },
-        {
           path: "/test",
           name: "test",
           component: () => import("@/views/TestView.vue"),
+        },
+      ],
+    },
+    {
+      path: "/admin",
+      name: "admin",
+      redirect: { name: "admin-users" },
+      component: LayoutDefault,
+      children: [
+        {
+          path: "/admin/users",
+          name: "admin-users",
+          component: () => import("@/views/admin/AdminUsers.vue"),
+          meta: {
+            can: "is-super-admin",
+          },
+        },
+        {
+          path: "/admin/nations",
+          name: "admin-nations",
+          component: () => import("@/views/admin/AdminNations.vue"),
+          meta: {
+            can: "is-super-admin",
+          },
+        },
+        {
+          path: "/admin/leagues",
+          name: "admin-leagues",
+          component: () => import("@/views/admin/AdminLeagues.vue"),
+          meta: {
+            can: "is-super-admin",
+          },
+        },
+        {
+          path: "/admin/clubs",
+          name: "admin-clubs",
+          component: () => import("@/views/admin/AdminClubs.vue"),
+          meta: {
+            can: "is-super-admin",
+          },
         },
       ],
     },
