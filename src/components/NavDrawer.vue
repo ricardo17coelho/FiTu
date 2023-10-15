@@ -50,7 +50,7 @@
 
 <script lang="ts" setup>
 import { supabase } from "@/services/supabase";
-import { computed, onMounted } from "vue";
+import { computed } from "vue";
 import { RouteLocationRaw } from "vue-router";
 import { useAcl } from "vue-simple-acl";
 import { isDevEnv } from "@/utils";
@@ -92,6 +92,12 @@ const navLinks = computed((): NavLinkItem[] => [
     icon: "mdi-account",
     show: () => acl.can("is-super-admin"),
     children: [
+      {
+        text: "Users",
+        to: "/admin/users",
+        icon: "mdi-account",
+        show: () => acl.can("is-super-admin"),
+      },
       {
         text: "Nations",
         to: "/admin/nations",

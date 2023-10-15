@@ -90,7 +90,7 @@
         <!--            </v-card-actions>-->
         <!--          </v-card>-->
         <!--        </v-dialog>-->
-        <template #extension>
+        <template v-if="$slots['toolbar-extension']" #extension>
           <slot name="toolbar-extension" />
         </template>
       </v-toolbar>
@@ -141,19 +141,6 @@ const emit = defineEmits(["click:add", "click:delete:item", "click:edit:item"]);
 
 const dialog = ref(false);
 const dialogDelete = ref(false);
-// const headers = ref([
-//   {
-//     title: "Dessert (100g serving)",
-//     align: "start",
-//     sortable: false,
-//     key: "name",
-//   },
-//   { title: "Calories", key: "calories" },
-//   { title: "Fat (g)", key: "fat" },
-//   { title: "Carbs (g)", key: "carbs" },
-//   { title: "Protein (g)", key: "protein" },
-//   { title: "Actions", key: "actions", sortable: false },
-// ]);
 
 const computedHeaders = computed(() => {
   return [

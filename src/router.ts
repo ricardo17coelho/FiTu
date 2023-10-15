@@ -105,9 +105,17 @@ const router = createRouter({
         {
           path: "/admin",
           name: "admin",
-          redirect: { name: "admin-nations" },
+          redirect: { name: "admin-users" },
           component: () => import("@/layouts/EmptyLayout.vue"),
           children: [
+            {
+              path: "/admin/users",
+              name: "admin-users",
+              component: () => import("@/views/admin/AdminUsers.vue"),
+              meta: {
+                can: "is-super-admin",
+              },
+            },
             {
               path: "/admin/nations",
               name: "admin-nations",

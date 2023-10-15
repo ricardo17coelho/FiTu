@@ -1,12 +1,46 @@
 <template>
   <h1 class="mb-2 text-3xl font-medium">Profile</h1>
   <p class="mb-4 text-xl">Hi, {{ name }}</p>
-  <v-row>
-    <v-col>
-      <v-form
-        class="inline-flex flex-col space-y-2"
-        @submit.prevent="changePassword"
-      >
+  <v-form
+    class="inline-flex flex-col space-y-2"
+    @submit.prevent="changeFirstnameAndLastname"
+  >
+    <v-row>
+      <v-col>
+        <v-text-field
+          v-model="firstname"
+          name="firstname"
+          id="firstname"
+          :disabled="loading"
+          label="Change your firstname"
+          placeholder="Choose a new firstname"
+        />
+      </v-col>
+      <v-col>
+        <v-text-field
+          :disabled="loading"
+          required
+          v-model="lastname"
+          class="inline-block"
+          name="lastname"
+          id="lastname"
+          label="Change your lastname"
+          placeholder="Choose a new lastname"
+        />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col align="end">
+        <VBtnPrimary :disabled="loading" type="submit">Save</VBtnPrimary>
+      </v-col>
+    </v-row>
+  </v-form>
+  <v-form
+    class="inline-flex flex-col space-y-2"
+    @submit.prevent="changePassword"
+  >
+    <v-row>
+      <v-col>
         <FieldPassword
           v-model="password"
           name="password"
@@ -15,14 +49,20 @@
           label="Change your password"
           placeholder="Choose a new password"
         />
-        <VBtnPrimary :disabled="loading">Change Password</VBtnPrimary>
-      </v-form>
-    </v-col>
-    <v-col>
-      <v-form
-        class="inline-flex flex-col space-y-2"
-        @submit.prevent="changeNickname"
-      >
+      </v-col>
+      <v-col cols="12" align="end">
+        <VBtnPrimary :disabled="loading" type="submit"
+          >Change Password</VBtnPrimary
+        >
+      </v-col>
+    </v-row>
+  </v-form>
+  <v-form
+    class="inline-flex flex-col space-y-2"
+    @submit.prevent="changeNickname"
+  >
+    <v-row>
+      <v-col>
         <v-text-field
           :disabled="loading"
           required
@@ -33,10 +73,14 @@
           label="Change your nickname"
           placeholder="Choose a new nickname"
         />
-        <VBtnPrimary :disabled="loading">Change Nickname</VBtnPrimary>
-      </v-form>
-    </v-col>
-  </v-row>
+      </v-col>
+      <v-col cols="12" align="end">
+        <VBtnPrimary :disabled="loading" type="submit"
+          >Change Nickname</VBtnPrimary
+        >
+      </v-col>
+    </v-row>
+  </v-form>
 </template>
 
 <script setup lang="ts">
@@ -74,6 +118,21 @@ async function changeNickname() {
   else {
     alert("nickname successfully changed");
     name.value = nickname.value;
+  }
+  loading.value = false;
+}
+
+/* Change Firstname & Lastname */
+const lastname = ref(metadata?.lastname);
+const firstname = ref(metadata?.firstname);
+async function changeFirstnameAndLastname() {
+  loading.value = true;
+  const { error } = await supabase.auth.update({
+    data: { firstname: firstname.value, lastname: lastname.value },
+  });
+  if (error) alert(error.message);
+  else {
+    alert("firstname & lastname successfully changed");
   }
   loading.value = false;
 }
