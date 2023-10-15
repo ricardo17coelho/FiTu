@@ -16,7 +16,7 @@ import { supabase } from "@/services/supabase";
 import axios from "axios";
 import AppTable from "@/components/AppTable.vue";
 
-const currenLeague = ref(undefined);
+// const currenLeague = ref(undefined);
 const leagues = ref([]);
 
 const headers = ref([

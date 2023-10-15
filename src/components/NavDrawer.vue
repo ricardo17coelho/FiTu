@@ -49,7 +49,6 @@
 </template>
 
 <script lang="ts" setup>
-import { supabase } from "@/services/supabase";
 import { computed } from "vue";
 import { RouteLocationRaw } from "vue-router";
 import { useAcl } from "vue-simple-acl";
@@ -126,8 +125,8 @@ const navLinks = computed((): NavLinkItem[] => [
   },
 ]);
 
-async function signOut() {
-  const { error } = await supabase.auth.signOut();
-  if (error) alert(error.message);
-}
+// async function signOut() {
+//   const { error } = await supabase.auth.signOut();
+//   if (error) alert(error.message);
+// }
 </script>

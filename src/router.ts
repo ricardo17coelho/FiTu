@@ -54,6 +54,7 @@ const router = createRouter({
           component: () => import("@/views/auth/AuthCallback.vue"),
           beforeEnter: (to) => {
             /* Parse the route hash into a dictionary */
+            // eslint-disable-next-line  @typescript-eslint/no-explicit-any
             const hashDictionary = {} as any;
             // first remove the actual '#' character
             const hash = to.hash.replace("#", "");

@@ -11,7 +11,7 @@
       @submit.prevent="emailAuth"
     >
       <v-text-field
-        v-model="(credentials.email as string)"
+        v-model="credentials.email"
         required
         :disabled="loading"
         label="Email"
@@ -21,7 +21,7 @@
         :placeholder="emailPlaceholder"
       />
       <FieldPassword
-        v-model="(credentials.password as string)"
+        v-model="credentials.password"
         :disabled="loading"
         class="mb-4 w-full"
         name="password"

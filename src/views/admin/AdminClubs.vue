@@ -45,7 +45,7 @@ import { supabase } from "@/services/supabase";
 import AppTable from "@/components/AppTable.vue";
 import axios from "axios";
 
-const currentClub = ref(undefined);
+// const currentClub = ref(undefined);
 const clubs = ref([]);
 
 const headers = ref([

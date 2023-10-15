@@ -16,7 +16,7 @@ import { supabase } from "@/services/supabase";
 import axios from "axios";
 import AppTable from "@/components/AppTable.vue";
 
-const currenNation = ref(undefined);
+// const currenNation = ref(undefined);
 const nations = ref([]);
 
 const headers = ref([

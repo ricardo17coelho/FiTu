@@ -27,6 +27,7 @@ const router = useRouter();
 const route = useRoute();
 
 /* Parse the route hash into a dictionary so we can pick out the access_token provided */
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 const hashDictionary = {} as any;
 // first remove the actual '#' character
 const hash = route.hash.replace("#", "");

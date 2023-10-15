@@ -99,6 +99,7 @@
     <template v-for="(_, name) in $slots" v-slot:[name]="slotData">
       <slot :name="name" v-bind="slotData" />
     </template>
+    <!-- eslint-disable vue/valid-v-slot -->
     <template #item.logoUrl="{ item }">
       <v-avatar v-if="item.logoUrl" color="grey-lighten-4" class="border-solid">
         <v-img
@@ -108,6 +109,7 @@
         ></v-img>
       </v-avatar>
     </template>
+    <!-- eslint-disable vue/valid-v-slot -->
     <template #item.actions="{ item }">
       <v-icon size="small" class="me-2" @click="emit('click:edit:item', item)">
         mdi-pencil
@@ -120,8 +122,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, ref, watch } from "vue";
-
 const props = defineProps({
   title: {
     type: String,
@@ -139,8 +139,8 @@ const props = defineProps({
 
 const emit = defineEmits(["click:add", "click:delete:item", "click:edit:item"]);
 
-const dialog = ref(false);
-const dialogDelete = ref(false);
+// const dialog = ref(false);
+// const dialogDelete = ref(false);
 
 const computedHeaders = computed(() => {
   return [
@@ -148,66 +148,66 @@ const computedHeaders = computed(() => {
     { title: "Actions", key: "actions", sortable: false },
   ];
 });
-const editedIndex = ref(-1);
-const editedItem = ref({
-  name: "",
-  calories: 0,
-  fat: 0,
-  carbs: 0,
-  protein: 0,
-});
-const defaultItem = ref({
-  name: "",
-  calories: 0,
-  fat: 0,
-  carbs: 0,
-  protein: 0,
-});
-const formTitle = computed(() => {
-  return editedIndex.value === -1 ? "New Item" : "Edit Item";
-});
-function editItem(item) {
-  // editedIndex.value = desserts.value.indexOf(item);
-  editedItem.value = Object.assign({}, item);
-  dialog.value = true;
-}
-function deleteItem(item) {
-  // editedIndex.value = desserts.value.indexOf(item);
-  editedItem.value = Object.assign({}, item);
-  dialogDelete.value = true;
-}
-function deleteItemConfirm() {
-  // desserts.value.splice(editedIndex.value, 1);
-  closeDelete();
-}
-function close() {
-  dialog.value = false;
-  nextTick(() => {
-    editedItem.value = Object.assign({}, defaultItem.value);
-    editedIndex.value = -1;
-  });
-}
-function closeDelete() {
-  dialogDelete.value = false;
-  nextTick(() => {
-    editedItem.value = Object.assign({}, defaultItem.value);
-    editedIndex.value = -1;
-  });
-}
-function save() {
-  // if (editedIndex.value > -1) {
-  //   Object.assign(desserts.value[editedIndex.value], editedItem.value);
-  // } else {
-  //   desserts.value.push(editedItem.value);
-  // }
-  close();
-}
-watch(dialog, (val) => {
-  val || close();
-});
-watch(dialogDelete, (val) => {
-  val || closeDelete();
-});
+// const editedIndex = ref(-1);
+// const editedItem = ref({
+//   name: "",
+//   calories: 0,
+//   fat: 0,
+//   carbs: 0,
+//   protein: 0,
+// });
+// const defaultItem = ref({
+//   name: "",
+//   calories: 0,
+//   fat: 0,
+//   carbs: 0,
+//   protein: 0,
+// });
+// const formTitle = computed(() => {
+//   return editedIndex.value === -1 ? "New Item" : "Edit Item";
+// });
+// function editItem(item) {
+//   // editedIndex.value = desserts.value.indexOf(item);
+//   editedItem.value = Object.assign({}, item);
+//   dialog.value = true;
+// }
+// function deleteItem(item) {
+//   // editedIndex.value = desserts.value.indexOf(item);
+//   editedItem.value = Object.assign({}, item);
+//   dialogDelete.value = true;
+// }
+// function deleteItemConfirm() {
+//   // desserts.value.splice(editedIndex.value, 1);
+//   closeDelete();
+// }
+// function close() {
+//   dialog.value = false;
+//   nextTick(() => {
+//     editedItem.value = Object.assign({}, defaultItem.value);
+//     editedIndex.value = -1;
+//   });
+// }
+// function closeDelete() {
+//   dialogDelete.value = false;
+//   nextTick(() => {
+//     editedItem.value = Object.assign({}, defaultItem.value);
+//     editedIndex.value = -1;
+//   });
+// }
+// function save() {
+//   // if (editedIndex.value > -1) {
+//   //   Object.assign(desserts.value[editedIndex.value], editedItem.value);
+//   // } else {
+//   //   desserts.value.push(editedItem.value);
+//   // }
+//   close();
+// }
+// watch(dialog, (val) => {
+//   val || close();
+// });
+// watch(dialogDelete, (val) => {
+//   val || closeDelete();
+// });
 </script>
 
 <style scoped></style>

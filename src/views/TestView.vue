@@ -358,23 +358,23 @@ async function getAllLogosClubs() {
 //     });
 // };
 
-function getImageUrlFromBlob(imageBlob: Blob) {
-  return (
-    "data:image/png;base64," +
-    btoa(
-      new Uint8Array(imageBlob).reduce(
-        (data, byte) => data + String.fromCharCode(byte),
-        ""
-      )
-    )
-  );
-}
+// function getImageUrlFromBlob(imageBlob: Blob) {
+//   return (
+//     "data:image/png;base64," +
+//     btoa(
+//       new Uint8Array(imageBlob).reduce(
+//         (data, byte) => data + String.fromCharCode(byte),
+//         ""
+//       )
+//     )
+//   );
+// }
 
-async function getLogoPublicUrl(logoUrl: string) {
-  const result = logoUrl.substring(logoUrl.indexOf("/") + 1);
-  console.warn("result", result);
-  const { publicURL } = supabase.storage.from("logos").getPublicUrl(result);
-  console.warn("publicURL", publicURL);
-  return publicURL;
-}
+// async function getLogoPublicUrl(logoUrl: string) {
+//   const result = logoUrl.substring(logoUrl.indexOf("/") + 1);
+//   console.warn("result", result);
+//   const { publicURL } = supabase.storage.from("logos").getPublicUrl(result);
+//   console.warn("publicURL", publicURL);
+//   return publicURL;
+// }
 </script>
