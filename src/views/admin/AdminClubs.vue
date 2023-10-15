@@ -1,4 +1,5 @@
 <template>
+  <VBtnDev @click="updateLogos">DEV: updateLogos</VBtnDev>
   <AppTable
     title="Clubs"
     :items="clubs"
@@ -42,6 +43,7 @@
 import { onMounted } from "vue";
 import { supabase } from "@/services/supabase";
 import AppTable from "@/components/AppTable.vue";
+import axios from "axios";
 
 const currentClub = ref(undefined);
 const clubs = ref([]);
@@ -113,5 +115,58 @@ async function getLeaguesByNationId(nationId: string) {
   console.warn("data", data);
   console.warn("error", error);
   leagues.value = data;
+}
+
+// ----------------------
+// DEV
+// ----------------------
+async function updateById(id: string, body) {
+  const { data } = await supabase.from("clubs").update(body).eq("id", id);
+
+  if (data) {
+    return data;
+  }
+  return null;
+}
+
+async function uploadLogo(name, logo) {
+  console.warn("uploadLogo", name, logo);
+  const { data } = await supabase.storage
+    .from("logos")
+    .upload(`clubs/${name}`, logo, {
+      cacheControl: "3600",
+      upsert: false,
+    });
+  if (data) {
+    return data;
+  }
+  return null;
+}
+
+async function updateLogos() {
+  for (const idx in clubs.value) {
+    let club = clubs.value[idx];
+    console.warn("clubs", clubs);
+    try {
+      const { data } = await axios.get(`/clubs/${club.id}/image`, {
+        responseType: "blob",
+        timeout: 30000,
+      });
+      const { Key: logoKey } = await uploadLogo(club.id, data);
+      console.warn("logoKey", logoKey);
+      const logoUrlPath = logoKey.substring(logoKey.indexOf("/") + 1);
+      const { publicURL } = supabase.storage
+        .from("logos")
+        .getPublicUrl(logoUrlPath);
+      console.warn("publicURL", publicURL);
+      if (publicURL) {
+        const bodyData = { logoUrl: publicURL };
+        console.warn("bodyData", bodyData);
+        await updateById(club.id, bodyData);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }
 </script>

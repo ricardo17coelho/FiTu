@@ -201,7 +201,7 @@ async function getFutDBLeagues(page = 1) {
 
 async function updateFutDBLeagues(page = 1) {
   try {
-    const { data } = await getFutDBLeagues(page);
+    const data = await getFutDBLeagues(page);
     const { items, pagination } = data;
     /* Pagination
      * countCurrent : 20
@@ -243,18 +243,25 @@ async function addNation(params) {
 }
 
 async function getFutDBNations(page = 1) {
-  const { data } = await axios.get(`/nations`, {
-    params: {
-      page,
-    },
-  });
+  try {
+    const { data } = await axios.get(`/nations`, {
+      params: {
+        page,
+      },
+    });
 
-  return data;
+    console.warn("data", data);
+
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 async function updateFutDBNations(page = 1) {
   try {
-    const { data } = await getFutDBNations(page);
+    const data = await getFutDBNations(page);
+    console.warn("data", data);
     const { items, pagination } = data;
     /* Pagination
      * countCurrent : 20
