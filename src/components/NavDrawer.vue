@@ -1,58 +1,19 @@
 <template>
-  <v-navigation-drawer
+  <CoreNavDrawer
     v-bind="$attrs"
     :model-value="modelValue"
+    :items="navLinks.filter((item) => (item.show ? item.show() : false))"
     @update:modelValue="emit('update:modelValue', !modelValue)"
   >
-    <v-list>
-      <template
-        v-for="navLink in navLinks.filter((item) =>
-          item.show ? item.show() : false
-        )"
-        :key="navLink.text"
-      >
-        <v-list-group v-if="navLink.children" :value="navLink.text">
-          <template #activator="{ props: NavLinkProps }">
-            <v-list-item
-              v-bind="NavLinkProps"
-              :prepend-icon="navLink.icon"
-              :title="navLink.text"
-            ></v-list-item>
-          </template>
-          <v-list-item-title
-            v-for="navLinkChildren in navLink.children"
-            :key="navLinkChildren.text"
-            :value="navLinkChildren.text"
-          >
-            <v-list-item
-              :title="navLinkChildren.text"
-              :prepend-icon="navLinkChildren.icon"
-              :to="navLinkChildren.to"
-              :link="true"
-              :exact="true"
-            >
-            </v-list-item>
-          </v-list-item-title>
-        </v-list-group>
-
-        <v-list-item
-          v-else
-          :title="navLink.text"
-          :prepend-icon="navLink.icon"
-          :to="navLink.to"
-          :link="true"
-          :exact="true"
-        ></v-list-item>
-      </template>
-    </v-list>
-  </v-navigation-drawer>
+  </CoreNavDrawer>
 </template>
 
 <script lang="ts" setup>
 import { computed } from "vue";
-import { RouteLocationRaw } from "vue-router";
+import { RouteLocationRaw, useRouter } from "vue-router";
 import { useAcl } from "vue-simple-acl";
 import { isDevEnv } from "@/utils";
+import CoreNavDrawer from "@/components/core/CoreNavDrawer.vue";
 
 defineProps<{
   modelValue: boolean;
@@ -63,6 +24,7 @@ const emit = defineEmits<{
 }>();
 
 const acl = useAcl();
+const router = useRouter();
 
 export interface NavLinkItem {
   text: string;
@@ -114,6 +76,19 @@ const navLinks = computed((): NavLinkItem[] => [
         to: "/admin/clubs",
         icon: "mdi-account",
         show: () => acl.can("is-super-admin"),
+      },
+    ],
+  },
+  {
+    text: "Tournaments",
+    icon: "mdi-account",
+    show: () => true,
+    children: [
+      {
+        text: "My Tournaments",
+        to: "/tournaments",
+        icon: "mdi-account",
+        show: () => true,
       },
     ],
   },

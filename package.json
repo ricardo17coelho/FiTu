@@ -5,9 +5,11 @@
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview --port 5050",
-    "test:vitest": "vitest --environment jsdom",
-    "test:unit": "cypress open-ct",
-    "test:unit:ci": "cypress run-ct --quiet --reporter spec",
+    "test:unit": "vitest --environment jsdom",
+    "test:unit:coverage": "vitest run --coverage",
+    "test:unit:watch": "yarn test:unit --watch",
+    "test:coverage": "vitest run --coverage",
+    "test:ci": "vitest run --coverage.enabled --coverage.reporter=cobertura --coverage.reporter=text --coverage.reportsDirectory=\"./coverage\" --reporter=basic --reporter=junit --outputFile=\"./coverage/junit.xml\" --coverage.all",
     "test:e2e": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress open'",
     "test:e2e:ci": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress run'",
     "typecheck": "vue-tsc --noEmit",
@@ -47,7 +49,7 @@
     "unplugin-auto-import": "^0.5.5",
     "vite": "^2.7.7",
     "vite-plugin-vuetify": "^1.0.2",
-    "vitest": "^0.2.5",
+    "vitest": "^0.34.6",
     "vue-tsc": "^0.29.8"
   }
 }

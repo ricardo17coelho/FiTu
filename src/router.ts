@@ -5,6 +5,7 @@ import { pinia } from "./stores";
 // Layouts
 import LayoutDefault from "@/layouts/LayoutDefault.vue";
 import LayoutAuth from "@/layouts/LayoutAuth.vue";
+import LayoutTournament from "@/layouts/LayoutTournament.vue";
 // import LayoutEmpty from "@/layouts/LayoutEmpty.vue";
 
 const router = createRouter({
@@ -96,22 +97,40 @@ const router = createRouter({
       component: LayoutDefault,
       meta: {
         requiresAuth: true,
+        showOnDrawer: true,
       },
       children: [
         {
           path: "/",
           name: "home",
           component: () => import("@/views/HomeView.vue"),
+          meta: {
+            showOnDrawer: true,
+          },
         },
         {
           path: "/profile",
           name: "profile",
           component: () => import("@/views/ProfileView.vue"),
+          meta: {
+            showOnDrawer: true,
+          },
+        },
+        {
+          path: "/tournaments",
+          name: "tournaments-list",
+          component: () => import("@/views/tournaments/TournamentsView.vue"),
+          meta: {
+            showOnDrawer: true,
+          },
         },
         {
           path: "/test",
           name: "test",
           component: () => import("@/views/TestView.vue"),
+          meta: {
+            showOnDrawer: true,
+          },
         },
       ],
     },
@@ -120,6 +139,9 @@ const router = createRouter({
       name: "admin",
       redirect: { name: "admin-users" },
       component: LayoutDefault,
+      meta: {
+        showOnDrawer: true,
+      },
       children: [
         {
           path: "/admin/users",
@@ -127,6 +149,7 @@ const router = createRouter({
           component: () => import("@/views/admin/AdminUsers.vue"),
           meta: {
             can: "is-super-admin",
+            showOnDrawer: true,
           },
         },
         {
@@ -135,6 +158,7 @@ const router = createRouter({
           component: () => import("@/views/admin/AdminNations.vue"),
           meta: {
             can: "is-super-admin",
+            showOnDrawer: true,
           },
         },
         {
@@ -143,6 +167,7 @@ const router = createRouter({
           component: () => import("@/views/admin/AdminLeagues.vue"),
           meta: {
             can: "is-super-admin",
+            showOnDrawer: true,
           },
         },
         {
@@ -151,7 +176,76 @@ const router = createRouter({
           component: () => import("@/views/admin/AdminClubs.vue"),
           meta: {
             can: "is-super-admin",
+            showOnDrawer: true,
           },
+        },
+      ],
+    },
+    {
+      path: "/tournaments/:id",
+      component: LayoutTournament,
+      meta: {
+        showOnDrawer: true,
+      },
+      children: [
+        {
+          path: "",
+          name: "tournaments-id",
+          component: () => import("@/views/tournaments/TournamentsId.vue"),
+          meta: {
+            showOnDrawer: true,
+          },
+          props: true,
+        },
+        {
+          path: "/tournaments/:id/general",
+          name: "tournaments-id-general",
+          component: () =>
+            import("@/views/tournaments/TournamentsIdGeneral.vue"),
+          meta: {
+            showOnDrawer: true,
+          },
+          props: true,
+        },
+        {
+          path: "/tournaments/:id/participants",
+          name: "tournaments-id-participants",
+          component: () =>
+            import("@/views/tournaments/TournamentsIdParticipants.vue"),
+          meta: {
+            showOnDrawer: true,
+          },
+          props: true,
+        },
+        {
+          path: "/tournaments/:id/format",
+          name: "tournaments-id-format",
+          component: () =>
+            import("@/views/tournaments/TournamentsIdFormat.vue"),
+          meta: {
+            showOnDrawer: true,
+          },
+          props: true,
+        },
+        {
+          path: "/tournaments/:id/schedule",
+          name: "tournaments-id-schedule",
+          component: () =>
+            import("@/views/tournaments/TournamentsIdSchedule.vue"),
+          meta: {
+            showOnDrawer: true,
+          },
+          props: true,
+        },
+        {
+          path: "/tournaments/:id/results",
+          name: "tournaments-id-results",
+          component: () =>
+            import("@/views/tournaments/TournamentsIdResults.vue"),
+          meta: {
+            showOnDrawer: true,
+          },
+          props: true,
         },
       ],
     },
