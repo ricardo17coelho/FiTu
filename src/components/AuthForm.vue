@@ -97,7 +97,7 @@
 import { Ref } from "vue";
 import { SignInWithPasswordCredentials } from "@supabase/supabase-js";
 import FieldPassword from "@/components/fields/FieldPassword.vue";
-import supabase from "@/services/supabase";
+import { supabase } from "@/services/supabase";
 
 const props = defineProps<{
   signUp: boolean;

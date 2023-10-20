@@ -5,7 +5,7 @@
   </VBtnPrimary>
 </template>
 <script lang="ts" setup>
-import supabase from "@/services/supabase";
+import { supabase } from "@/services/supabase";
 
 const reRoute = computed(() => {
   if (supabase().auth.getUser())
