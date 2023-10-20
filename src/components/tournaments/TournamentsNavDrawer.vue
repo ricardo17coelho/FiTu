@@ -38,7 +38,7 @@ const navLinks = computed((): NavLinkItem[] => [
       name: "tournaments-id-general",
       params: { id: currentTournamentId.value },
     },
-    icon: "mdi-cog",
+    icon: "mdi-tune",
     show: () => true,
   },
   {
@@ -47,7 +47,7 @@ const navLinks = computed((): NavLinkItem[] => [
       name: "tournaments-id-participants",
       params: { id: currentTournamentId.value },
     },
-    icon: "mdi-account",
+    icon: "mdi-tshirt-crew",
     show: () => true,
   },
   {
@@ -56,7 +56,7 @@ const navLinks = computed((): NavLinkItem[] => [
       name: "tournaments-id-format",
       params: { id: currentTournamentId.value },
     },
-    icon: "mdi-account",
+    icon: "mdi-diversify",
     show: () => true,
   },
   {
@@ -65,16 +65,27 @@ const navLinks = computed((): NavLinkItem[] => [
       name: "tournaments-id-schedule",
       params: { id: currentTournamentId.value },
     },
-    icon: "mdi-account",
+    icon: "mdi-calendar",
     show: () => true,
   },
+  {
+    text: "Presentation",
+    to: {
+      name: "tournaments-id-presentation",
+      params: { id: currentTournamentId.value },
+    },
+    icon: "mdi-cast-variant",
+    show: () => true,
+  },
+
   {
     text: "Results",
     to: {
       name: "tournaments-id-results",
       params: { id: currentTournamentId.value },
     },
-    icon: "mdi-account",
+    icon: "mdi-scoreboard",
+    // mdi-sitemap
     show: () => true,
   },
 ]);

@@ -1,20 +1,58 @@
 <template>
   <v-container>
     <h1>FORMAT</h1>
-    <div>
-      {{ teams }}
-    </div>
-    <div v-if="tournamentData">
-      {{ tournamentData }}
-      Matches: {{ tournamentData.matches }}
-    </div>
+
+    {{ doubleRound }}
+    <h5 class="text-h5">Format: Group phase only</h5>
+    <!--    <v-expansion-panels>-->
+    <!--      <v-expansion-panel-->
+    <!--        v-for="(matchRounds, matchRoundsIdx) in tournamentData.matches"-->
+    <!--        :key="`match-round-${matchRoundsIdx}`"-->
+    <!--        :title="`Round: ${matchRoundsIdx + 1}`"-->
+    <!--      >-->
+    <!--        <template #text>-->
+    <!--          <v-row>-->
+    <!--            <v-col-->
+    <!--              v-for="(match, matchIdx) in matchRounds"-->
+    <!--              :key="`match-${matchIdx}`"-->
+    <!--            >-->
+    <!--              <v-card max-width="200">-->
+    <!--                <v-card>{{ match[0].alias }}</v-card>-->
+    <!--                vs-->
+    <!--                <v-card>{{ match[1].alias }}</v-card>-->
+    <!--              </v-card>-->
+    <!--            </v-col>-->
+    <!--          </v-row>-->
+    <!--        </template>-->
+    <!--      </v-expansion-panel>-->
+    <!--    </v-expansion-panels>-->
+
+    <h5 class="text-h5">Format: knockout phase only</h5>
+
+    <!--    <div-->
+    <!--      v-for="(knockoutOnly, knockoutOnlyIdx) in knockoutsOnly"-->
+    <!--      :key="`knockout-only-${knockoutOnlyIdx}`"-->
+    <!--    >-->
+    <!--      <div-->
+    <!--        v-for="(knockoutOnlyRound, knockoutOnlyRoundIdx) in knockoutOnly"-->
+    <!--        :key="`knockout-only-round.${knockoutOnlyRoundIdx}`"-->
+    <!--      >-->
+    <!--        <div v-if="knockoutOnlyRound.length > 0">-->
+    <!--          {{ knockoutOnlyRound[0].alias }}-->
+    <!--        </div>-->
+    <!--        <div v-if="knockoutOnlyRound.length > 1">-->
+    <!--          {{ knockoutOnlyRound[1].alias }}-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <h5 class="text-h5">Format: Group phase and knockout phase</h5>
   </v-container>
 </template>
 
 <script setup lang="ts">
 import { supabase } from "@/services/supabase";
 import { computed, onMounted } from "vue";
-import Tournament from "@/utils/tournament";
+import generator from "@/utils/tournament-generator";
 
 const props = defineProps({
   id: {
@@ -40,17 +78,9 @@ onMounted(async () => {
   await getData();
 });
 
-const tournamentData = computed(() => {
-  if (teams.value.length > 1) {
-    console.warn(
-      "teams",
-      teams.value.map((t) => t.alias)
-    );
-    // const tournament = new Tournament(teams.value.map((t) => t.alias));
-    const tournament = new Tournament(teams.value);
-    console.warn("tournament", tournament);
-    return tournament;
-  }
-  return [];
+// Generate and get games
+
+const doubleRound = computed(() => {
+  return generator(teams.value, { type: "double-round" });
 });
 </script>

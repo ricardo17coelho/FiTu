@@ -238,6 +238,16 @@ const router = createRouter({
           props: true,
         },
         {
+          path: "/tournaments/:id/presentation",
+          name: "tournaments-id-presentation",
+          component: () =>
+            import("@/views/tournaments/TournamentsIdPresentation.vue"),
+          meta: {
+            showOnDrawer: true,
+          },
+          props: true,
+        },
+        {
           path: "/tournaments/:id/results",
           name: "tournaments-id-results",
           component: () =>
