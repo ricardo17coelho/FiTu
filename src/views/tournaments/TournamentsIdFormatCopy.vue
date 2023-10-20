@@ -102,14 +102,14 @@ const tournamentData = computed(() => {
 // generate round-robin
 
 const roundRobin = (teams) => {
-  let schedule = [];
-  let league = teams.slice();
+  const schedule = [];
+  const league = teams.slice();
 
   if (league.length % 2) {
     league.push("None");
   }
 
-  let rounds = league.length;
+  const rounds = league.length;
 
   for (let j = 0; j < (rounds - 1) * 2; j++) {
     schedule[j] = [];
@@ -128,7 +128,7 @@ const roundRobin = (teams) => {
 };
 
 onMounted(() => {
-  let leagueSchedule = roundRobin(teams.value);
+  const leagueSchedule = roundRobin(teams.value);
 
   for (let p = 0; p < leagueSchedule.length; p++) {
     console.log(leagueSchedule[p]);
@@ -158,15 +158,15 @@ function onGenerateKnockout() {
 function genMatches(teams) {
   let teamsCount = teams.length;
   console.warn("genMatches", teamsCount);
-  let totalMatches = teamsCount - 1;
+  const totalMatches = teamsCount - 1;
   let byeCount = 0;
-  let matchStructure = [];
-  let log2 = Math.log2(teamsCount);
-  let floorValue = Math.floor(log2);
+  const matchStructure = [];
+  const log2 = Math.log2(teamsCount);
+  const floorValue = Math.floor(log2);
   if (log2 > floorValue) {
-    let tempPowerHolder = Math.pow(2, floorValue + 1);
+    const tempPowerHolder = Math.pow(2, floorValue + 1);
     console.warn("tempPowerHolder", tempPowerHolder);
-    let matches = [];
+    const matches = [];
     byeCount = tempPowerHolder - teamsCount;
     teamsCount = tempPowerHolder / 2;
     for (let i = 0; i < teamsCount; ++i) {
@@ -178,7 +178,7 @@ function genMatches(teams) {
 
   while (teamsCount > 1) {
     teamsCount = (teamsCount + 1) >> 1;
-    let matches = [];
+    const matches = [];
     for (let i = 0; i < teamsCount; ++i) {
       matches.push([]);
     }
@@ -194,23 +194,23 @@ function genMatches(teams) {
   };
 }
 
-const knockoutsOnly2 = ref<[][]>([]);
-function genMatches2(teams) {
-  console.warn("genMatches", teams);
-  let teamsCount = teams.length;
-  console.warn("teamsCount", teamsCount);
-  while (teamsCount > 1) {
-    console.warn("while:teamsCount", teamsCount);
-    console.warn("while:2:teamsCount", teamsCount);
-    let matches = [];
-    for (let i = 0; i < teamsCount; ++i) {
-      const currentTeam = teams[i];
-      matches.push([currentTeam]);
-    }
-    teamsCount = (teamsCount + 1) >> 1;
-    knockoutsOnly2.value.push(matches);
-  }
-
-  console.warn("knockoutsOnly2", knockoutsOnly2.value);
-}
+// const knockoutsOnly2 = ref<[][]>([]);
+// function genMatches2(teams) {
+//   console.warn("genMatches", teams);
+//   let teamsCount = teams.length;
+//   console.warn("teamsCount", teamsCount);
+//   while (teamsCount > 1) {
+//     console.warn("while:teamsCount", teamsCount);
+//     console.warn("while:2:teamsCount", teamsCount);
+//     const matches = [];
+//     for (let i = 0; i < teamsCount; ++i) {
+//       const currentTeam = teams[i];
+//       matches.push([currentTeam]);
+//     }
+//     teamsCount = (teamsCount + 1) >> 1;
+//     knockoutsOnly2.value.push(matches);
+//   }
+//
+//   console.warn("knockoutsOnly2", knockoutsOnly2.value);
+// }
 </script>

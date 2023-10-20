@@ -56,7 +56,7 @@ import router from "@/router";
 const tournaments = ref([]);
 
 async function getTournaments() {
-  let { data, error } = await supabase().from("tournaments").select("*");
+  const { data, error } = await supabase().from("tournaments").select("*");
   console.warn("getTournaments", data);
   if (error) {
     console.error("Error on get tournaments");

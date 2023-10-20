@@ -12,7 +12,7 @@ import generators from "./generators/index";
 
 export default (
   teams: string[],
-  options: GeneratorOptions
+  options: GeneratorOptions,
 ): GeneratorResponse => {
   const generator = generators[options.type];
 

@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import { computed } from "vue";
-import { RouteLocationRaw, useRouter } from "vue-router";
+import { RouteLocationRaw } from "vue-router";
 import { useAcl } from "vue-simple-acl";
 import { isDevEnv } from "@/utils";
 import CoreNavDrawer from "@/components/core/CoreNavDrawer.vue";
@@ -24,7 +24,6 @@ const emit = defineEmits<{
 }>();
 
 const acl = useAcl();
-const router = useRouter();
 
 export interface NavLinkItem {
   text: string;

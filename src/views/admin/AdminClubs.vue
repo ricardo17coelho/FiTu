@@ -60,12 +60,12 @@ const headers = ref([
   { title: "Logo", key: "logoUrl" },
 ]);
 async function getClubs() {
-  let { data } = await supabase().from("clubs").select("*");
+  const { data } = await supabase().from("clubs").select("*");
   clubs.value = data;
 }
 
 async function getClubsByLeagueId(leagueId: string) {
-  let { data } = await supabase()
+  const { data } = await supabase()
     .from("clubs")
     .select("*")
     .eq("league", leagueId);
@@ -89,7 +89,7 @@ function onClickDeleteItem(item) {
 const nations = ref([]);
 const currentNation = ref(undefined);
 async function getNations() {
-  let { data, error } = await supabase().from("nations").select("*");
+  const { data, error } = await supabase().from("nations").select("*");
   console.warn("data", data);
   console.warn("error", error);
   nations.value = data;
@@ -107,7 +107,7 @@ async function getLeaguesByNationId(nationId: string) {
     await getClubs();
     return;
   }
-  let { data, error } = await supabase()
+  const { data, error } = await supabase()
     .from("leagues")
     .select("*")
     .eq("nationId", nationId);
@@ -145,7 +145,7 @@ async function uploadLogo(name, logo) {
 
 async function updateLogos() {
   for (const idx in clubs.value) {
-    let club = clubs.value[idx];
+    const club = clubs.value[idx];
     console.warn("clubs", clubs);
     try {
       const { data } = await axios.get(`/clubs/${club.id}/image`, {

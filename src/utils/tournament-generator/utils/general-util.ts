@@ -25,7 +25,7 @@ export const shuffle = <T>(array: T[]): T[] => {
 
 export const getErrorResponse = (
   message: string,
-  status: number
+  status: number,
 ): GeneratorResponse => {
   return { data: [], errors: [{ message, status }] };
 };

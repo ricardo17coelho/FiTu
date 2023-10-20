@@ -86,13 +86,13 @@ onMounted(async () => {
 const currentClub = ref(undefined);
 const clubs = ref([]);
 async function getClubs() {
-  let { data, error } = await supabase().from("clubs").select("*");
+  const { data, error } = await supabase().from("clubs").select("*");
   console.warn("data", data);
   console.warn("error", error);
   clubs.value = data;
 }
 async function getClubsByLeagueId(leagueId: string) {
-  let { data, error } = await supabase()
+  const { data, error } = await supabase()
     .from("clubs")
     .select("*")
     .eq("league", leagueId);
@@ -162,14 +162,14 @@ async function updateFutDBClubs(page = 1) {
 const leagues = ref([]);
 const currentLeague = ref(undefined);
 async function getLeagues() {
-  let { data, error } = await supabase().from("leagues").select("*");
+  const { data, error } = await supabase().from("leagues").select("*");
   console.warn("data", data);
   console.warn("error", error);
   leagues.value = data;
 }
 async function getLeaguesByNationId(nationId: string) {
   console.warn("getLeaguesByNationId", nationId);
-  let { data, error } = await supabase()
+  const { data, error } = await supabase()
     .from("leagues")
     .select()
     .eq("nationId", nationId);
@@ -227,7 +227,7 @@ async function updateFutDBLeagues(page = 1) {
 const nations = ref([]);
 const currentNation = ref(undefined);
 async function getNations() {
-  let { data, error } = await supabase().from("nations").select("*");
+  const { data, error } = await supabase().from("nations").select("*");
   console.warn("data", data);
   console.warn("error", error);
   nations.value = data;
@@ -287,7 +287,7 @@ async function updateFutDBNations(page = 1) {
 async function updateClubsLogos() {
   for (const clubIdx in clubs.value) {
     // if (Number(clubIdx) < 10) {
-    let club = clubs.value[clubIdx];
+    const club = clubs.value[clubIdx];
     console.warn("club", club);
     try {
       const { data } = await axios.get(`/clubs/${club.id}/image`, {

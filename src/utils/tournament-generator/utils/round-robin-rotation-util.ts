@@ -62,6 +62,6 @@ export default (teams: string[], isDouble: boolean): GeneratorGame[] => {
   }
 
   return fixtures.filter(
-    (g) => g.homeTeam !== oddExtraUuid && g.awayTeam !== oddExtraUuid
+    (g) => g.homeTeam !== oddExtraUuid && g.awayTeam !== oddExtraUuid,
   );
 };

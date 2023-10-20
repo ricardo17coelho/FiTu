@@ -1,6 +1,8 @@
 import List from "./list";
 
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 type Matches = any[][][];
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 type Team = string | { [key: string]: any };
 type TeamsList = Team[];
 
@@ -49,9 +51,12 @@ export default class Tournament implements TournamentInterface {
    * @returns {any[]} - The array of generated rounds of matches.
    */
   protected calculateMatches(
+    // eslint-disable-next-line  @typescript-eslint/no-explicit-any
     teams: any,
+    // eslint-disable-next-line  @typescript-eslint/no-explicit-any
     rounds: any = [],
-    round: any = 0
+    // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+    round: any = 0,
   ): Matches {
     if (round === this.totalRounds) return rounds;
 
@@ -60,12 +65,13 @@ export default class Tournament implements TournamentInterface {
 
     rounds.push(
       halfTeams
+        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
         .map((team: any, index: number) => {
           const opponent = rotatedTeams[rotatedTeams.length - ++index];
           if (opponent.__bye || team.__bye) return;
           return round % 2 ? [team, opponent] : [opponent, team];
         })
-        .filter(Boolean)
+        .filter(Boolean),
     );
 
     return this.calculateMatches(rotatedTeams, rounds, ++round);

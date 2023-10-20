@@ -7,6 +7,7 @@ export default class List {
    * @param {Array<any>} list - The list to rotate. Default is an empty array.
    * @returns {Array<any>} The rotated list.
    */
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   static rotate = (list: Array<any> = []): Array<any> =>
     list.slice(1).concat(list.slice(0, 1));
 
@@ -17,8 +18,10 @@ export default class List {
    * @returns {Array<any>} The rotated list with the locked item in the specified position.
    */
   static lockedRotate(
+    // eslint-disable-next-line  @typescript-eslint/no-explicit-any
     list: Array<any> = [],
-    lockedPosition: number = 0
+    lockedPosition: number = 0,
+    // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   ): Array<any> {
     const listCopy = [...list];
     const [lockedItem] = listCopy.splice(lockedPosition, 1);

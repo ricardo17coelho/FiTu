@@ -21,7 +21,7 @@ describe("Simple cup generator test", () => {
   it("Fail to generate due to invalid team names", async () => {
     const response = generator(
       ["Porto", "Benfica", "Sporting", "TO_BE_DEFINED"],
-      { type: "simple-cup" }
+      { type: "simple-cup" },
     );
 
     expect(response).toEqual({
@@ -124,7 +124,7 @@ describe("Simple cup generator test", () => {
       const top = response.data.filter(
         (g) =>
           g.customData?.awayTeam === game.id ||
-          g.customData?.homeTeam === game.id
+          g.customData?.homeTeam === game.id,
       );
 
       expect(top.length).toEqual(1);
@@ -134,8 +134,9 @@ describe("Simple cup generator test", () => {
     expect(
       response.data.filter(
         (game) =>
-          game.awayTeam !== "TO_BE_DEFINED" && game.homeTeam === "TO_BE_DEFINED"
-      ).length
+          game.awayTeam !== "TO_BE_DEFINED" &&
+          game.homeTeam === "TO_BE_DEFINED",
+      ).length,
     ).toEqual(0);
   });
 
@@ -189,14 +190,16 @@ describe("Simple cup generator test", () => {
     expect(
       response.data.filter(
         (game) =>
-          game.awayTeam === "TO_BE_DEFINED" && game.homeTeam === "TO_BE_DEFINED"
-      ).length
+          game.awayTeam === "TO_BE_DEFINED" &&
+          game.homeTeam === "TO_BE_DEFINED",
+      ).length,
     ).toEqual(2);
     expect(
       response.data.filter(
         (game) =>
-          game.awayTeam !== "TO_BE_DEFINED" && game.homeTeam === "TO_BE_DEFINED"
-      ).length
+          game.awayTeam !== "TO_BE_DEFINED" &&
+          game.homeTeam === "TO_BE_DEFINED",
+      ).length,
     ).toEqual(1);
   });
 
@@ -224,15 +227,15 @@ describe("Simple cup generator test", () => {
       response.data.filter(
         (game) =>
           game.awayTeam === toBeDefinedValue &&
-          game.homeTeam === toBeDefinedValue
-      ).length
+          game.homeTeam === toBeDefinedValue,
+      ).length,
     ).toEqual(2);
     expect(
       response.data.filter(
         (game) =>
           game.awayTeam !== toBeDefinedValue &&
-          game.homeTeam === toBeDefinedValue
-      ).length
+          game.homeTeam === toBeDefinedValue,
+      ).length,
     ).toEqual(1);
   });
 });

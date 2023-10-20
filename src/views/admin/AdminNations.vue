@@ -30,7 +30,7 @@ const headers = ref([
   { title: "Logo", key: "logoUrl" },
 ]);
 async function getNations() {
-  let { data } = await supabase().from("nations").select("*");
+  const { data } = await supabase().from("nations").select("*");
   nations.value = data;
 }
 
@@ -74,7 +74,7 @@ async function uploadLogo(name, logo) {
 
 async function updateLogos() {
   for (const idx in nations.value) {
-    let nation = nations.value[idx];
+    const nation = nations.value[idx];
     console.warn("nation", nation);
     try {
       const { data } = await axios.get(`/nations/${nation.id}/image`, {

@@ -5,7 +5,6 @@
   </VBtnPrimary>
 </template>
 <script lang="ts" setup>
-import { useAuthStore } from "@/stores/auth";
 import supabase from "@/services/supabase";
 
 const reRoute = computed(() => {

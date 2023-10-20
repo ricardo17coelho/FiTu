@@ -24,7 +24,7 @@ const TO_BE_DEFINED_CONSTANT = "TO_BE_DEFINED";
 const generateMissingGamesUntilFinal = (
   games: Readonly<GeneratorGame[]>,
   round: number,
-  toBeDefined: string
+  toBeDefined: string,
 ): GeneratorGame[] => {
   const result: GeneratorGame[] = [];
   const roundTwoFixtures = games.filter((game) => game.round === 2);
@@ -68,7 +68,7 @@ const generateMissingGamesUntilFinal = (
 
 export default (
   teams: string[],
-  options: GeneratorOptions
+  options: GeneratorOptions,
 ): GeneratorResponse => {
   const toBeDefined = options.toBeDefinedValue || TO_BE_DEFINED_CONSTANT;
 
@@ -138,7 +138,7 @@ export default (
     const missingGames = generateMissingGamesUntilFinal(
       data,
       perfectRound,
-      toBeDefined
+      toBeDefined,
     );
 
     data.push(...missingGames);

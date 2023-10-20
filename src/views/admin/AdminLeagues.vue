@@ -30,7 +30,7 @@ const headers = ref([
   { title: "Logo", key: "logoUrl" },
 ]);
 async function getLeagues() {
-  let { data } = await supabase().from("leagues").select("*");
+  const { data } = await supabase().from("leagues").select("*");
   leagues.value = data;
 }
 
@@ -74,7 +74,7 @@ async function uploadLogo(name, logo) {
 
 async function updateLogos() {
   for (const idx in leagues.value) {
-    let league = leagues.value[idx];
+    const league = leagues.value[idx];
     console.warn("league", league);
     try {
       const { data } = await axios.get(`/leagues/${league.id}/image`, {
