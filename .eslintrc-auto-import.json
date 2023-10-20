@@ -220,6 +220,25 @@
     "watchEffect": true,
     "watchOnce": true,
     "watchWithFilter": true,
-    "whenever": true
+    "whenever": true,
+    "Component": true,
+    "ComponentPublicInstance": true,
+    "ComputedRef": true,
+    "ExtractDefaultPropTypes": true,
+    "ExtractPropTypes": true,
+    "ExtractPublicPropTypes": true,
+    "InjectionKey": true,
+    "PropType": true,
+    "Ref": true,
+    "VNode": true,
+    "WritableComputedRef": true,
+    "isProxy": true,
+    "isReactive": true,
+    "onBeforeRouteLeave": true,
+    "onBeforeRouteUpdate": true,
+    "toValue": true,
+    "useLink": true,
+    "watchPostEffect": true,
+    "watchSyncEffect": true
   }
 }
