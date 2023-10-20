@@ -1,27 +1,29 @@
 <template>
   <h1 class="text-3xl font-medium">Home</h1>
-  <pre>{{ supabase.auth.user() }}</pre>
+  <pre>{{ currentUser }}</pre>
 </template>
 <script setup lang="ts">
-import { supabase } from "@/services/supabase";
+import { useAuthStore } from "@/stores/auth";
+
+const { currentUser } = useAuthStore();
 
 // async function getMyClaims() {
-//   // const { data, error } = await supabase.rpc("get_my_claim", {
+//   // const { data, error } = await supabase().rpc("get_my_claim", {
 //   //   claim: "userrole",
 //   // });
-//   const { data, error } = await supabase.rpc("get_my_claims");
+//   const { data, error } = await supabase().rpc("get_my_claims");
 //   if (error) console.error("getMyClaims error", error);
 //   console.warn(data);
 // }
 //
 // async function isClaimAdmin() {
-//   const { data, error } = await supabase.rpc("is_claims_admin");
+//   const { data, error } = await supabase().rpc("is_claims_admin");
 //   if (error) console.error("getMyClaims error", error);
 //   console.warn(data);
 // }
 //
 // async function setClaim({ uid, claim, value }) {
-//   const { data, error } = await supabase.rpc("set_claim", {
+//   const { data, error } = await supabase().rpc("set_claim", {
 //     uid,
 //     claim,
 //     value,
@@ -32,7 +34,7 @@ import { supabase } from "@/services/supabase";
 //
 // async function setRole(role: string) {
 //   await setClaim({
-//     uid: supabase.auth.user()?.id,
+//     uid: supabase().auth.getUser()?.id,
 //     claim: "userrole",
 //     value: `'${role}'`,
 //   });

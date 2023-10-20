@@ -86,13 +86,13 @@ onMounted(async () => {
 const currentClub = ref(undefined);
 const clubs = ref([]);
 async function getClubs() {
-  let { data, error } = await supabase.from("clubs").select("*");
+  let { data, error } = await supabase().from("clubs").select("*");
   console.warn("data", data);
   console.warn("error", error);
   clubs.value = data;
 }
 async function getClubsByLeagueId(leagueId: string) {
-  let { data, error } = await supabase
+  let { data, error } = await supabase()
     .from("clubs")
     .select("*")
     .eq("league", leagueId);
@@ -102,7 +102,7 @@ async function getClubsByLeagueId(leagueId: string) {
   currentClub.value = undefined;
 }
 async function addClub(params) {
-  const { data, error } = await supabase
+  const { data, error } = await supabase()
     .from("clubs")
     .insert([params])
     .select();
@@ -112,7 +112,7 @@ async function addClub(params) {
 }
 
 async function updateClubById(id: string, body) {
-  const { data, error } = await supabase
+  const { data, error } = await supabase()
     .from("clubs")
     .update(body)
     .eq("id", id);
@@ -162,14 +162,14 @@ async function updateFutDBClubs(page = 1) {
 const leagues = ref([]);
 const currentLeague = ref(undefined);
 async function getLeagues() {
-  let { data, error } = await supabase.from("leagues").select("*");
+  let { data, error } = await supabase().from("leagues").select("*");
   console.warn("data", data);
   console.warn("error", error);
   leagues.value = data;
 }
 async function getLeaguesByNationId(nationId: string) {
   console.warn("getLeaguesByNationId", nationId);
-  let { data, error } = await supabase
+  let { data, error } = await supabase()
     .from("leagues")
     .select()
     .eq("nationId", nationId);
@@ -181,7 +181,7 @@ async function getLeaguesByNationId(nationId: string) {
   currentLeague.value = undefined;
 }
 async function addLeague(params) {
-  const { data, error } = await supabase
+  const { data, error } = await supabase()
     .from("leagues")
     .insert([params])
     .select();
@@ -227,13 +227,13 @@ async function updateFutDBLeagues(page = 1) {
 const nations = ref([]);
 const currentNation = ref(undefined);
 async function getNations() {
-  let { data, error } = await supabase.from("nations").select("*");
+  let { data, error } = await supabase().from("nations").select("*");
   console.warn("data", data);
   console.warn("error", error);
   nations.value = data;
 }
 async function addNation(params) {
-  const { data, error } = await supabase
+  const { data, error } = await supabase()
     .from("nations")
     .insert([params])
     .select();
@@ -297,8 +297,8 @@ async function updateClubsLogos() {
       const { Key: clubUrl } = await uploadClubsLogos(club.id, data);
       console.warn("clubUrl", clubUrl);
       const clubUrlPath = clubUrl.substring(clubUrl.indexOf("/") + 1);
-      const { publicURL } = supabase.storage
-        .from("logos")
+      const { publicURL } = supabase()
+        .storage.from("logos")
         .getPublicUrl(clubUrlPath);
       console.warn("publicURL", publicURL);
       if (publicURL) {
@@ -315,8 +315,8 @@ async function updateClubsLogos() {
 
 async function uploadClubsLogos(name, logo) {
   console.warn("uploadClubsLogos", name, logo);
-  const { data, error } = await supabase.storage
-    .from("logos")
+  const { data, error } = await supabase()
+    .storage.from("logos")
     .upload(`clubs/${name}`, logo, {
       cacheControl: "3600",
       upsert: false,
@@ -330,11 +330,13 @@ async function uploadClubsLogos(name, logo) {
 }
 
 async function getAllLogosClubs() {
-  const { data, error } = await supabase.storage.from("logos").list("clubs", {
-    limit: 100,
-    offset: 0,
-    sortBy: { column: "name", order: "asc" },
-  });
+  const { data, error } = await supabase()
+    .storage.from("logos")
+    .list("clubs", {
+      limit: 100,
+      offset: 0,
+      sortBy: { column: "name", order: "asc" },
+    });
 
   console.warn("getAllLogosClubs", data, error);
 }
@@ -350,7 +352,7 @@ async function getAllLogosClubs() {
 //   const filename = `${testFile.value?.name}`;
 //   console.warn(typeof testFile.value);
 //
-//   const { data, error } = await supabase.storage
+//   const { data, error } = await supabase().storage
 //     .from("logos")
 //     .upload(filename, testFile.value, {
 //       cacheControl: "3600",
@@ -373,7 +375,7 @@ async function getAllLogosClubs() {
 // async function getLogoPublicUrl(logoUrl: string) {
 //   const result = logoUrl.substring(logoUrl.indexOf("/") + 1);
 //   console.warn("result", result);
-//   const { publicURL } = supabase.storage.from("logos").getPublicUrl(result);
+//   const { publicURL } = supabase().storage.from("logos").getPublicUrl(result);
 //   console.warn("publicURL", publicURL);
 //   return publicURL;
 // }

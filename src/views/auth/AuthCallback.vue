@@ -9,9 +9,9 @@ const router = useRouter();
 const { supabase } = useAuthStore();
 
 onMounted(() => {
-  if (supabase.auth.user()) {
+  if (supabase().auth.getUser()) {
     console.log(
-      "arrived on callback page with an existing user, so going home"
+      "arrived on callback page with an existing user, so going home",
     );
     setTimeout(() => {
       router.push("/");

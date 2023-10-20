@@ -4,11 +4,9 @@ import router from "@/router";
 import { computed } from "vue"; // For VUE 3
 import { createAcl, defineAclRules } from "vue-simple-acl";
 import { USER_ROLES } from "@/constants/roles";
-import { useAuthStore } from "@/stores/auth";
+import { supabase } from "@/services/supabase";
 
-const authStore = useAuthStore();
-
-const user = computed(() => authStore.supabase.auth.user());
+const user = computed(() => supabase().auth.getUser());
 
 const rules = () =>
   defineAclRules((setRule) => {

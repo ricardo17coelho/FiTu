@@ -70,7 +70,7 @@ const props = defineProps({
 
 const teams = ref([]);
 async function getData() {
-  const { data, error } = await supabase
+  const { data, error } = await supabase()
     .from("tournament_teams")
     .select("*")
     .eq("tournamentId", props.id);
@@ -89,7 +89,7 @@ const tournamentData = computed(() => {
   if (teams.value.length > 1) {
     console.warn(
       "teams",
-      teams.value.map((t) => t.alias)
+      teams.value.map((t) => t.alias),
     );
     // const tournament = new Tournament(teams.value.map((t) => t.alias));
     const tournament = new Tournament(teams.value);

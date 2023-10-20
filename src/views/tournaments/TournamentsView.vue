@@ -56,7 +56,7 @@ import router from "@/router";
 const tournaments = ref([]);
 
 async function getTournaments() {
-  let { data, error } = await supabase.from("tournaments").select("*");
+  let { data, error } = await supabase().from("tournaments").select("*");
   console.warn("getTournaments", data);
   if (error) {
     console.error("Error on get tournaments");
@@ -75,7 +75,7 @@ const tournament = ref({
 });
 
 async function onSaveTournament() {
-  const { data, error } = await supabase
+  const { data, error } = await supabase()
     .from("tournaments")
     .insert([tournament.value])
     .select();

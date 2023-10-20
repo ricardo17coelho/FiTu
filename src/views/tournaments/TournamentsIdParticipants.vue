@@ -41,7 +41,7 @@ const props = defineProps({
 const tournament = ref(undefined);
 
 async function getData() {
-  let { data, error } = await supabase
+  let { data, error } = await supabase()
     .from("tournaments")
     .select("*")
     .eq("id", props.id);

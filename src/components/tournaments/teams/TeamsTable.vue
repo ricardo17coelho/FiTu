@@ -47,14 +47,14 @@ const headers = ref([
   { title: "Players", key: "tournament_team_players" },
 ]);
 async function getData() {
-  const { data, error } = await supabase
+  const { data, error } = await supabase()
     .from("tournament_teams")
     .select(
       `
         id,
         alias,
         tournament_team_players ( id, name )
-      `
+      `,
     )
     .eq("tournamentId", props.tournamentId);
   if (error) {

@@ -60,12 +60,12 @@ const headers = ref([
   { title: "Logo", key: "logoUrl" },
 ]);
 async function getClubs() {
-  let { data } = await supabase.from("clubs").select("*");
+  let { data } = await supabase().from("clubs").select("*");
   clubs.value = data;
 }
 
 async function getClubsByLeagueId(leagueId: string) {
-  let { data } = await supabase
+  let { data } = await supabase()
     .from("clubs")
     .select("*")
     .eq("league", leagueId);
@@ -89,7 +89,7 @@ function onClickDeleteItem(item) {
 const nations = ref([]);
 const currentNation = ref(undefined);
 async function getNations() {
-  let { data, error } = await supabase.from("nations").select("*");
+  let { data, error } = await supabase().from("nations").select("*");
   console.warn("data", data);
   console.warn("error", error);
   nations.value = data;
@@ -107,7 +107,7 @@ async function getLeaguesByNationId(nationId: string) {
     await getClubs();
     return;
   }
-  let { data, error } = await supabase
+  let { data, error } = await supabase()
     .from("leagues")
     .select("*")
     .eq("nationId", nationId);
@@ -121,7 +121,7 @@ async function getLeaguesByNationId(nationId: string) {
 // DEV
 // ----------------------
 async function updateById(id: string, body) {
-  const { data } = await supabase.from("clubs").update(body).eq("id", id);
+  const { data } = await supabase().from("clubs").update(body).eq("id", id);
 
   if (data) {
     return data;
@@ -131,8 +131,8 @@ async function updateById(id: string, body) {
 
 async function uploadLogo(name, logo) {
   console.warn("uploadLogo", name, logo);
-  const { data } = await supabase.storage
-    .from("logos")
+  const { data } = await supabase()
+    .storage.from("logos")
     .upload(`clubs/${name}`, logo, {
       cacheControl: "3600",
       upsert: false,
@@ -155,8 +155,8 @@ async function updateLogos() {
       const { Key: logoKey } = await uploadLogo(club.id, data);
       console.warn("logoKey", logoKey);
       const logoUrlPath = logoKey.substring(logoKey.indexOf("/") + 1);
-      const { publicURL } = supabase.storage
-        .from("logos")
+      const { publicURL } = supabase()
+        .storage.from("logos")
         .getPublicUrl(logoUrlPath);
       console.warn("publicURL", publicURL);
       if (publicURL) {

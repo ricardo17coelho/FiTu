@@ -1,8 +1,10 @@
 <template>
   <v-container>
     <h1>FORMAT</h1>
+    <JsonTreeView
+      :data="JSON.stringify({ doubleRound, singleRound, simpleCup })"
+    />
 
-    {{ doubleRound }}
     <h5 class="text-h5">Format: Group phase only</h5>
     <!--    <v-expansion-panels>-->
     <!--      <v-expansion-panel-->
@@ -53,6 +55,7 @@
 import { supabase } from "@/services/supabase";
 import { computed, onMounted } from "vue";
 import generator from "@/utils/tournament-generator";
+import { JsonTreeView } from "json-tree-view-vue3";
 
 const props = defineProps({
   id: {
@@ -63,7 +66,7 @@ const props = defineProps({
 
 const teams = ref([]);
 async function getData() {
-  const { data, error } = await supabase
+  const { data, error } = await supabase()
     .from("tournament_teams")
     .select("*")
     .eq("tournamentId", props.id);
@@ -82,5 +85,13 @@ onMounted(async () => {
 
 const doubleRound = computed(() => {
   return generator(teams.value, { type: "double-round" });
+});
+
+const singleRound = computed(() => {
+  return generator(teams.value, { type: "single-round" });
+});
+
+const simpleCup = computed(() => {
+  return generator(teams.value, { type: "simple-cup" });
 });
 </script>

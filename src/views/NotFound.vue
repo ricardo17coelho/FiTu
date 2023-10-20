@@ -6,10 +6,10 @@
 </template>
 <script lang="ts" setup>
 import { useAuthStore } from "@/stores/auth";
-const { supabase } = useAuthStore();
+import supabase from "@/services/supabase";
 
 const reRoute = computed(() => {
-  if (supabase.auth.user())
+  if (supabase().auth.getUser())
     return {
       to: "/",
       text: "Go Home",

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "./stores/auth";
-import { pinia } from "./stores";
+import { supabase } from "@/services/supabase";
 
 // Layouts
 import LayoutDefault from "@/layouts/LayoutDefault.vue";
@@ -48,8 +48,7 @@ const router = createRouter({
             // if we actually clicked a proper reset password link
             // which provides the type=recovery hash key
             if (!to.hash.includes("type=recovery")) {
-              const { supabase } = useAuthStore();
-              if (supabase.auth.user()) return "/";
+              if (supabase().auth.getUser()) return "/";
               return "/signin";
             }
           },
@@ -262,8 +261,7 @@ const router = createRouter({
   ],
 });
 
-const { supabase } = useAuthStore(pinia);
-supabase.auth.onAuthStateChange((event) => {
+supabase().auth.onAuthStateChange((event) => {
   console.log(event);
   if (event == "SIGNED_OUT") return router.push("/signin");
   if (event == "SIGNED_IN") {
@@ -278,15 +276,24 @@ supabase.auth.onAuthStateChange((event) => {
   }
 });
 
-router.beforeEach((to) => {
-  const { supabase } = useAuthStore();
+router.beforeEach(async (to) => {
+  const { currentUser, setCurrentUser } = useAuthStore();
 
-  if (to.meta.requiresAuth && !supabase.auth.user()) {
+  const {
+    data: { session },
+  } = await supabase().auth.getSession();
+
+  if (!currentUser) {
+    const currentUser = await supabase().auth.getUser();
+    setCurrentUser(currentUser);
+  }
+
+  if (to.meta.requiresAuth && !session) {
     return {
       path: "/signin",
     };
   }
-  if (to.meta.requiresNoAuth && supabase.auth.user()) {
+  if (to.meta.requiresNoAuth && session) {
     return {
       path: "/",
     };

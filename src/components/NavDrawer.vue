@@ -101,7 +101,7 @@ const navLinks = computed((): NavLinkItem[] => [
 ]);
 
 // async function signOut() {
-//   const { error } = await supabase.auth.signOut();
+//   const { error } = await supabase().auth.signOut();
 //   if (error) alert(error.message);
 // }
 </script>

@@ -94,10 +94,10 @@
 </template>
 
 <script lang="ts" setup>
-import { useAuthStore } from "@/stores/auth";
 import { Ref } from "vue";
-import { UserCredentials } from "@supabase/supabase-js";
+import { SignInWithPasswordCredentials } from "@supabase/supabase-js";
 import FieldPassword from "@/components/fields/FieldPassword.vue";
+import supabase from "@/services/supabase";
 
 const props = defineProps<{
   signUp: boolean;
@@ -107,7 +107,7 @@ const props = defineProps<{
   passwordPlaceholder: string;
 }>();
 
-const credentials: Ref<UserCredentials> = ref({
+const credentials: Ref<SignInWithPasswordCredentials> = ref({
   email: "",
   password: "",
 });
@@ -117,10 +117,9 @@ const router = useRouter();
 const emailLoading = ref(false);
 async function emailAuth() {
   emailLoading.value = true;
-  const { supabase } = useAuthStore();
   const { user, error } = props.signUp
-    ? await supabase.auth.signUp(credentials.value)
-    : await supabase.auth.signIn(credentials.value);
+    ? await supabase().auth.signUp(credentials.value)
+    : await supabase().auth.signInWithPassword(credentials.value);
   if (user) router.push("/");
   else if (error) {
     alert(error.message);
@@ -131,12 +130,11 @@ async function emailAuth() {
 const gitHubLoading = ref(false);
 async function gitHubAuth() {
   gitHubLoading.value = true;
-  const { supabase } = useAuthStore();
-  const { user, error } = await supabase.auth.signIn(
+  const { user, error } = await supabase().auth.signInWithOAuth(
     { provider: "github" },
     {
       redirectTo: `${window.location.origin}/callback`,
-    }
+    },
   );
   if (user) router.push("/");
   else if (error) {
@@ -148,12 +146,11 @@ async function gitHubAuth() {
 const googleLoading = ref(false);
 async function googleAuth() {
   googleLoading.value = true;
-  const { supabase } = useAuthStore();
-  const { user, error } = await supabase.auth.signIn(
+  const { user, error } = await supabase().auth.signInWithOAuth(
     { provider: "google" },
     {
       redirectTo: `${window.location.origin}/callback`,
-    }
+    },
   );
   if (user) router.push("/");
   else if (error) {
@@ -165,12 +162,11 @@ async function googleAuth() {
 const twitterLoading = ref(false);
 async function twitterAuth() {
   twitterLoading.value = true;
-  const { supabase } = useAuthStore();
-  const { user, error } = await supabase.auth.signIn(
+  const { user, error } = await supabase().auth.signInWithOAuth(
     { provider: "twitter" },
     {
       redirectTo: `${window.location.origin}/callback`,
-    }
+    },
   );
   if (user) router.push("/");
   else if (error) {
@@ -182,12 +178,11 @@ async function twitterAuth() {
 const facebookLoading = ref(false);
 async function facebookAuth() {
   facebookLoading.value = true;
-  const { supabase } = useAuthStore();
-  const { user, error } = await supabase.auth.signIn(
+  const { user, error } = await supabase().auth.signInWithOAuth(
     { provider: "facebook" },
     {
       redirectTo: `${window.location.origin}/callback`,
-    }
+    },
   );
   if (user) router.push("/");
   else if (error) {
@@ -202,6 +197,6 @@ const loading = computed(
     emailLoading.value ||
     googleLoading.value ||
     twitterLoading.value ||
-    facebookLoading.value
+    facebookLoading.value,
 );
 </script>

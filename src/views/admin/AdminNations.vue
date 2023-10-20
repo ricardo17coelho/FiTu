@@ -30,7 +30,7 @@ const headers = ref([
   { title: "Logo", key: "logoUrl" },
 ]);
 async function getNations() {
-  let { data } = await supabase.from("nations").select("*");
+  let { data } = await supabase().from("nations").select("*");
   nations.value = data;
 }
 
@@ -50,7 +50,7 @@ function onClickDeleteItem(item) {
 // DEV
 // ----------------------
 async function updateById(id: string, body) {
-  const { data } = await supabase.from("nations").update(body).eq("id", id);
+  const { data } = await supabase().from("nations").update(body).eq("id", id);
 
   if (data) {
     return data;
@@ -60,8 +60,8 @@ async function updateById(id: string, body) {
 
 async function uploadLogo(name, logo) {
   console.warn("uploadLogo", name, logo);
-  const { data } = await supabase.storage
-    .from("logos")
+  const { data } = await supabase()
+    .storage.from("logos")
     .upload(`nations/${name}`, logo, {
       cacheControl: "3600",
       upsert: false,
@@ -84,8 +84,8 @@ async function updateLogos() {
       const { Key: logoKey } = await uploadLogo(nation.id, data);
       console.warn("logoKey", logoKey);
       const logoUrlPath = logoKey.substring(logoKey.indexOf("/") + 1);
-      const { publicURL } = supabase.storage
-        .from("logos")
+      const { publicURL } = supabase()
+        .storage.from("logos")
         .getPublicUrl(logoUrlPath);
       console.warn("publicURL", publicURL);
       if (publicURL) {

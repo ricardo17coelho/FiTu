@@ -58,7 +58,7 @@ const headers = ref([
   { title: "Email", key: "email" },
 ]);
 async function getData() {
-  const { data, error } = await supabase
+  const { data, error } = await supabase()
     .from("tournament_administrators")
     .select("*")
     .eq("tournamentId", props.tournamentId);
@@ -81,7 +81,7 @@ const administrator = ref({
 });
 
 async function onSavePlayer() {
-  const { data, error } = await supabase
+  const { data, error } = await supabase()
     .from("tournament_administrators")
     .insert([{ ...administrator.value, tournamentId: props.tournamentId }])
     .select();

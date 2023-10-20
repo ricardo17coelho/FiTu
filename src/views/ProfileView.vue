@@ -88,7 +88,7 @@ import { supabase } from "@/services/supabase";
 import { User } from "@supabase/supabase-js";
 import FieldPassword from "@/components/fields/FieldPassword.vue";
 
-const user = supabase.auth.user() as User;
+const user = supabase().auth.getUser() as User;
 const metadata = user.user_metadata;
 const name = ref(metadata?.nickname || user.email);
 
@@ -100,7 +100,7 @@ const loading = ref(false);
 /* Change Password */
 async function changePassword() {
   loading.value = true;
-  const { error } = await supabase.auth.update({
+  const { error } = await supabase().auth.update({
     password: password.value,
   });
   alert(error?.message || "password successfully changed");
@@ -111,7 +111,7 @@ async function changePassword() {
 /* Change Nickname */
 async function changeNickname() {
   loading.value = true;
-  const { error } = await supabase.auth.update({
+  const { error } = await supabase().auth.update({
     data: { nickname: nickname.value },
   });
   if (error) alert(error.message);
@@ -127,7 +127,7 @@ const lastname = ref(metadata?.lastname);
 const firstname = ref(metadata?.firstname);
 async function changeFirstnameAndLastname() {
   loading.value = true;
-  const { error } = await supabase.auth.update({
+  const { error } = await supabase().auth.update({
     data: { firstname: firstname.value, lastname: lastname.value },
   });
   if (error) alert(error.message);
