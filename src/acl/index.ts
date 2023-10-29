@@ -1,12 +1,17 @@
 // Import router if you are using the middleware on Vue Router
 import router from "@/router";
 // ----- VUE 3 Imports -----
-import { computed } from "vue"; // For VUE 3
 import { createAcl, defineAclRules } from "vue-simple-acl";
 import { USER_ROLES } from "@/constants/roles";
 import { supabase } from "@/services/supabase";
 
-const user = computed(() => supabase().auth.getUser());
+const user = () => {
+  return supabase()
+    .auth.getUser()
+    .then(({ data: { user } }) => user);
+};
+
+console.warn("user", user);
 
 const rules = () =>
   defineAclRules((setRule) => {
