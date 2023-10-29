@@ -48,6 +48,7 @@ const opts = {
     VBtnPrimary: VBtn,
     VBtnSecondary: VBtn,
     VBtnDev: VBtn,
+    VBtnDelete: VBtn,
   },
   defaults: {
     VBtn: {
@@ -66,6 +67,11 @@ const opts = {
       variant: "tonal",
       color: "warning",
       prependIcon: "mdi-bug",
+    },
+    VBtnDelete: {
+      variant: "tonal",
+      color: "error",
+      prependIcon: "mdi-delete",
     },
     VIcon: {
       size: "small",

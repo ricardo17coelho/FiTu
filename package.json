@@ -23,6 +23,7 @@
     "axios": "^1.5.1",
     "json-tree-view-vue3": "^0.3.1",
     "pinia": "^2.1.7",
+    "tournament-organizer": "^3.3.2",
     "uuid": "^9.0.1",
     "vue": "^3.3.6",
     "vue-router": "^4.2.5",
