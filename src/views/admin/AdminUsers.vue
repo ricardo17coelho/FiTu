@@ -41,7 +41,7 @@ const headers = ref([
   { title: "Email confirmed", key: "email_confirmed_at" },
 ]);
 async function getUsers() {
-  const { data, error } = await supabaseAdmin.auth.api.listUsers();
+  const { data, error } = await supabaseAdmin().auth.admin.listUsers();
   if (error) {
     console.error("Error on get users");
     return;

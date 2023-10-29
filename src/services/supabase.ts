@@ -12,6 +12,6 @@ const supabaseAdminClient = createClient(
   supabaseUrl,
   supabaseServiceRoleSecret,
 );
-const supabaseAdmin = () => supabaseAdminClient;
+export const supabaseAdmin = () => supabaseAdminClient;
 
 export default { supabase, supabaseAdmin };
