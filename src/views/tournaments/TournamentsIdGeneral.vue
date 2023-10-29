@@ -199,7 +199,7 @@
 <script setup lang="ts">
 import { JsonTreeView } from "json-tree-view-vue3";
 import TournamentOrganizer from "tournament-organizer";
-import { StandingsValues } from "tournament-organizer/dist/interfaces/StandingsValues";
+// import { StandingsValues } from "tournament-organizer/dist/interfaces/StandingsValues";
 import { computed, onMounted } from "vue";
 import GroupTeamItem from "@/components/tournaments/groups/GroupTeamItem.vue";
 import { supabase } from "@/services/supabase";
@@ -381,9 +381,9 @@ const currentTournamentStandings = computed(
   () => currentTournament.value?.standings(),
 );
 
-function getFormattedMatches(tMatches: MatchValues[]) {
-  return groupBy(tMatches, (match: MatchValues) => match.round);
-}
+// function getFormattedMatches(tMatches: MatchValues[]) {
+//   return groupBy(tMatches, (match: MatchValues) => match.round);
+// }
 
 // Record a result
 // function addResults() {
@@ -514,7 +514,7 @@ async function onTournamentDeleteById(tournamentId: string) {
 
 const tournaments = ref<TournamentValues[]>([]);
 async function onTournamentGetAll() {
-  let { data, error } = await supabase().from("tournaments").select(`
+  const { data, error } = await supabase().from("tournaments").select(`
     *,
     players:tournament_teams(*),
     matches:tournament_matches(*)
@@ -555,38 +555,38 @@ async function onPlayerSave(playerData: PlayerValues, tournamentId: string) {
   return Promise.resolve(data);
 }
 
-async function onPlayerUpdate(playerData: PlayerValues) {
-  console.warn("onPlayerUpdate", playerData);
-  const newPlayerData = {
-    ...playerData,
-  };
-  delete newPlayerData.matches;
-  const { data, error } = await supabase()
-    .from("tournament_teams")
-    .update(newPlayerData)
-    .eq("id", newPlayerData.id);
+// async function onPlayerUpdate(playerData: PlayerValues) {
+//   console.warn("onPlayerUpdate", playerData);
+//   const newPlayerData = {
+//     ...playerData,
+//   };
+//   delete newPlayerData.matches;
+//   const { data, error } = await supabase()
+//     .from("tournament_teams")
+//     .update(newPlayerData)
+//     .eq("id", newPlayerData.id);
+//
+//   if (error) {
+//     console.error("Error on update player");
+//     return;
+//   }
+//   console.info("Saved!", data);
+// }
 
-  if (error) {
-    console.error("Error on update player");
-    return;
-  }
-  console.info("Saved!", data);
-}
-
-async function onPlayerDeleteById(playerId: string) {
-  console.warn("onPlayerDeleteById", playerId);
-
-  const { error } = await supabase()
-    .from("tournament_teams")
-    .delete()
-    .eq("id", playerId);
-
-  if (error) {
-    console.error("Error on delete player");
-    return;
-  }
-  console.info("Deleted!");
-}
+// async function onPlayerDeleteById(playerId: string) {
+//   console.warn("onPlayerDeleteById", playerId);
+//
+//   const { error } = await supabase()
+//     .from("tournament_teams")
+//     .delete()
+//     .eq("id", playerId);
+//
+//   if (error) {
+//     console.error("Error on delete player");
+//     return;
+//   }
+//   console.info("Deleted!");
+// }
 /*****************************************
  *
  *                MATCHES
