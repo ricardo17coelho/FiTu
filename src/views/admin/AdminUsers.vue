@@ -32,8 +32,9 @@
 import { onMounted } from "vue";
 import { supabaseAdmin } from "@/services/supabase";
 import AppTable from "@/components/AppTable.vue";
+import { User } from "@supabase/supabase-js";
 
-const users = ref([]);
+const users = ref<User[]>([]);
 
 const headers = ref([
   { title: "Name", key: "name" },
@@ -46,18 +47,18 @@ async function getUsers() {
     console.error("Error on get users");
     return;
   }
-  users.value = data;
+  users.value = data.users;
 }
 
 onMounted(async () => {
   await getUsers();
 });
 
-function onClickEditItem(item) {
+function onClickEditItem(item: User) {
   console.warn("onClickEditItem", item);
 }
 
-function onClickDeleteItem(item) {
+function onClickDeleteItem(item: User) {
   console.warn("onClickDeleteItem", item);
 }
 </script>
